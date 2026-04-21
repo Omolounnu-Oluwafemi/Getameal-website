@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import EventBanner from "./components/EventBanner";
 import TrustSection from "./components/TrustSection";
@@ -16,7 +15,6 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
-      <Navbar />
       <HeroSection />
       <EventBanner />
       <TrustSection />
