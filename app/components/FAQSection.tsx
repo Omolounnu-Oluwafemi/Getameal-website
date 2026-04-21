@@ -4,65 +4,67 @@ import { useState } from "react";
 
 const FAQS = [
   {
-    q: "What is GetAMeal?",
-    a: "GetAMeal is a marketplace that connects you with verified home cooks in your neighborhood. Browse cooks, pre-order authentic Nigerian meals, and have them delivered hot to your door.",
+    q: "What exactly is Getameal?",
+    a: "Getameal is a platform that connects customers with trusted home cooks who prepare Nigerian meals in bulk. Instead of ordering food daily, you can order larger portions — like soups, stews, and rice — and store them for the week or month.",
   },
   {
-    q: "How do I place an order?",
-    a: "Browse cooks in your area, choose your meal, select a delivery time, and pay securely. Your cook prepares your meal fresh and delivers it at your chosen time.",
+    q: "How is this different from regular food delivery apps?",
+    a: "Traditional delivery apps focus on single-plate, instant orders. Getameal is built around planning. You order in bulk, choose a cooking date, and restock intentionally — reducing daily spending, delivery fees, and impulse orders.",
   },
   {
-    q: "Are the cooks verified and safe?",
-    a: "Every cook undergoes a rigorous verification process including identity checks, kitchen hygiene inspection, and food safety certification before accepting orders.",
+    q: "How does bulk ordering work?",
+    a: "Cooks list meals with clear quantities (e.g., 3L, 5L, 8L). You select your preferred portion size, choose from available cooking dates, place your order, and pick up or receive it as scheduled. It's structured and transparent.",
   },
   {
-    q: "What areas do you currently cover in Lagos?",
-    a: "We serve Lekki Phase 1 & 2, Victoria Island, Ikoyi, Ikate, VGC, Ajah, Abraham Adesanya, Sangotedo, Chevron, Ikeja, Surulere, and more. Expanding every month!",
+    q: "Are the cooks verified?",
+    a: "Yes. Every cook goes through an onboarding and review process before being listed on the platform. We prioritize quality, consistency, and hygiene standards to ensure customers can order with confidence.",
   },
   {
-    q: "How do I become a cook on GetAMeal?",
-    a: "Sign up as a cook, complete the verification process (kitchen inspection + food safety training), upload your menu, and start receiving orders. We support you every step of the way.",
+    q: "Who is Getameal for?",
+    a: "Getameal is perfect for busy professionals, small families, office teams, and diaspora customers who want to stock up meals for loved ones. If you don't have time to cook daily but still want real home-cooked food, this is for you.",
   },
   {
-    q: "How much can I earn as a home cook?",
-    a: "Active cooks on GetAMeal earn between ₦80,000 and ₦250,000 per week. We help you maximize earnings with tools for pricing, scheduling, and marketing.",
+    q: "How do cooks benefit from the platform?",
+    a: "Cooks receive bulk orders in advance, allowing them to plan ingredients better, reduce waste, and cook in batches. This creates more predictable income compared to random daily orders.",
   },
 ];
 
+const PlusIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="shrink-0">
+    <circle cx="16" cy="16" r="15" stroke="#D1D5DB" strokeWidth="1.5" />
+    <path d="M10 16h12M16 10v12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const MinusIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="shrink-0">
+    <circle cx="16" cy="16" r="15" stroke="#D1D5DB" strokeWidth="1.5" />
+    <path d="M10 16h12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
 export default function FAQSection() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-3">
-          Let&apos;s Clear Things Up
-        </h2>
-        <p className="text-center text-gray-500 mb-12">
-          Got questions? We&apos;ve got answers.
-        </p>
-
-        <div className="space-y-2">
+    <section className="py-24 bg-white">
+      <div className="mx-auto px-4" style={{ maxWidth: "910px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px", minHeight: "730px" }}>
           {FAQS.map((faq, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm"
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
             >
               <button
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between px-8 py-6 text-left"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="font-semibold text-gray-900 pr-4">{faq.q}</span>
-                <span
-                  className={`text-gray-400 flex-shrink-0 transition-transform duration-200 text-xs ${
-                    open === i ? "rotate-180" : ""
-                  }`}
-                >
-                  ▼
-                </span>
+                <span className="font-bold text-gray-900 text-lg pr-6">{faq.q}</span>
+                {open === i ? <MinusIcon /> : <PlusIcon />}
               </button>
+
               {open === i && (
-                <div className="px-6 pb-6 text-gray-500 leading-relaxed text-sm border-t border-gray-50 pt-4">
+                <div className="px-8 pb-7 text-gray-500 leading-relaxed text-base">
                   {faq.a}
                 </div>
               )}
