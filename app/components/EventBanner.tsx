@@ -6,7 +6,14 @@ const ACTIVITIES = [
   {
     label: "Food Tasting",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M3 11l19-9-9 19-2-8-8-2z" />
       </svg>
     ),
@@ -14,7 +21,14 @@ const ACTIVITIES = [
   {
     label: "Wine Tasting",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M8 22h8M12 11v11M6 2h12l-2 7a4 4 0 01-8 0L6 2z" />
       </svg>
     ),
@@ -22,18 +36,46 @@ const ACTIVITIES = [
   {
     label: "Paint & Sip",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" />
         <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-        <line x1="9" y1="9" x2="9.01" y2="9" strokeWidth="3" strokeLinecap="round" />
-        <line x1="15" y1="9" x2="15.01" y2="9" strokeWidth="3" strokeLinecap="round" />
+        <line
+          x1="9"
+          y1="9"
+          x2="9.01"
+          y2="9"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <line
+          x1="15"
+          y1="9"
+          x2="15.01"
+          y2="9"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
   {
     label: "Cake Tasting",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8" />
         <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2 1 2 1" />
         <path d="M2 21h20" />
@@ -45,7 +87,14 @@ const ACTIVITIES = [
   {
     label: "Interactive Food Games",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <rect x="2" y="6" width="20" height="12" rx="4" />
         <path d="M6 12h4M8 10v4" />
         <circle cx="16" cy="11" r="1" fill="currentColor" />
@@ -56,7 +105,14 @@ const ACTIVITIES = [
   {
     label: "Surprise Experience",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <circle cx="12" cy="12" r="10" />
         <path d="M12 8v4l3 3" />
       </svg>
@@ -124,7 +180,7 @@ export default function EventBanner() {
       </div>
 
       {/* Activity bar — pinned to bottom */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 w-full max-w-4xl px-4">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 w-full max-w-313.25 px-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-6 py-4">
           <div className="flex items-center justify-between gap-4 flex-wrap">
             {ACTIVITIES.map(({ label, icon }) => (
@@ -133,7 +189,9 @@ export default function EventBanner() {
                 className="flex items-center gap-2 text-white/90 hover:text-white transition-colors cursor-pointer"
               >
                 <span className="opacity-80">{icon}</span>
-                <span className="text-sm font-medium whitespace-nowrap">{label}</span>
+                <span className="text-sm font-medium whitespace-nowrap">
+                  {label}
+                </span>
               </div>
             ))}
           </div>

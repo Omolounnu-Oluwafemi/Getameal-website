@@ -10,6 +10,7 @@ import FindCooksSection from "./components/FindCooksSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import FAQSection from "./components/FAQSection";
 import ContactSection from "./components/ContactSection";
+import EventSection from "./components/EventSection";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       <TestimonialsSection />
       <FAQSection />
       <ContactSection />
+      <EventSection />
       <Footer />
     </div>
   );

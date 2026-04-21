@@ -30,16 +30,38 @@ const FAQS = [
 ];
 
 const PlusIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="shrink-0">
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    className="shrink-0"
+  >
     <circle cx="16" cy="16" r="15" stroke="#D1D5DB" strokeWidth="1.5" />
-    <path d="M10 16h12M16 10v12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+    <path
+      d="M10 16h12M16 10v12"
+      stroke="#374151"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </svg>
 );
 
 const MinusIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="shrink-0">
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
+    className="shrink-0"
+  >
     <circle cx="16" cy="16" r="15" stroke="#D1D5DB" strokeWidth="1.5" />
-    <path d="M10 16h12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
+    <path
+      d="M10 16h12"
+      stroke="#374151"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
   </svg>
 );
 
@@ -49,7 +71,14 @@ export default function FAQSection() {
   return (
     <section className="py-24 bg-white">
       <div className="mx-auto px-4" style={{ maxWidth: "910px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px", minHeight: "730px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            // minHeight: "530px",
+          }}
+        >
           {FAQS.map((faq, i) => (
             <div
               key={i}
@@ -59,7 +88,9 @@ export default function FAQSection() {
                 className="w-full flex items-center justify-between px-8 py-6 text-left"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="font-bold text-gray-900 text-lg pr-6">{faq.q}</span>
+                <span className="font-bold text-gray-900 text-lg pr-6">
+                  {faq.q}
+                </span>
                 {open === i ? <MinusIcon /> : <PlusIcon />}
               </button>
 
