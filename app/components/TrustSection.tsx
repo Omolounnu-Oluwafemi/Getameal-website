@@ -1,118 +1,117 @@
-const COOKS = [
-  { name: "Chef Ada Okonkwo", specialty: "Jollof Rice & Stew", color: "bg-amber-200" },
-  { name: "Mama Tola Badmus", specialty: "Egusi Soup & Pounded Yam", color: "bg-orange-200" },
-  { name: "Mr. Emeka Nwosu", specialty: "Pepper Soup & Ukwa", color: "bg-green-200" },
-  { name: "Aunty Ngozi Eze", specialty: "Afang Soup & Garri", color: "bg-teal-200" },
-];
+import Image from "next/image";
 
-const HOW_IT_WORKS = [
+const STEPS = [
   {
-    step: "01",
-    title: "Find a Cook",
-    desc: "Browse verified home cooks in your neighborhood. Filter by cuisine, price, or dietary needs.",
-    icon: "🔍",
+    number: "1",
+    title: "Explore home cooks near you",
+    desc: "Find verified cook that will cook what you want to eat for the week. It's made fresh for you.",
+    thumb: { bg: "bg-amber-100", emoji: "👨‍🍳" },
   },
   {
-    step: "02",
-    title: "Pre-order Your Meal",
-    desc: "Choose your meal, set your delivery time, and pay securely. Your cook prepares everything fresh.",
-    icon: "📋",
+    number: "2",
+    title: "Pre-Order the portion you need",
+    desc: "Order 5 Litres of egusi, 8 Litres of Jollof rice with protein or any meal of your choice and enjoy for the week.",
+    thumb: { bg: "bg-orange-100", emoji: "🍛" },
   },
   {
-    step: "03",
-    title: "Enjoy Delivery",
-    desc: "Your hot, home-cooked meal is delivered right to your door at the time you chose.",
-    icon: "🚀",
+    number: "3",
+    title: "Pick up your order or get it delivered",
+    desc: "Once the cook is done cooking your meal, you either get it delivered to you or you pick it up yourself no stories.",
+    thumb: { bg: "bg-red-100", emoji: "🛵" },
   },
 ];
 
 export default function TrustSection() {
   return (
-    <section className="py-24 bg-white" id="how-it-works">
+    <section className="py-24 bg-gray-50" id="how-it-works">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Trust */}
-        <div className="flex flex-col lg:flex-row gap-16 items-center mb-28">
-          <div className="flex-1 max-w-lg">
-            <div className="flex items-center gap-2 mb-6">
-              {["bg-green-600", "bg-amber-400", "bg-orange-400"].map((c, i) => (
-                <div key={i} className={`w-5 h-5 rounded-full ${c}`} />
-              ))}
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          {/* ── Left column ── */}
+          <div className="lg:w-[50%] w-full">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-8 shadow-sm">
+              <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center shrink-0">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 3C9.5 3 7 5 7 8c0 2 1 3.5 2.5 4.5V20h5v-7.5C16 11.5 17 10 17 8c0-3-2.5-5-5-5z"
+                    fill="white"
+                  />
+                  <circle cx="12" cy="8" r="2" fill="#4ade80" />
+                </svg>
+              </div>
+              <span className="text-sm font-semibold text-gray-700">
+                For Customers
+              </span>
             </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-5 leading-tight">
-              Order from the Kitchen you Trust
+
+            {/* Heading */}
+            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight mb-5">
+              Order from the
+              <br />
+              Kitchen you Trust
             </h2>
-            <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-              Every cook on GetAMeal is personally verified, food-safety certified, and
-              passionate about authentic Nigerian home cooking. You know exactly who&apos;s
-              making your food.
+
+            {/* Subtitle */}
+            <p className="text-gray-500 leading-relaxed mb-10">
+              Every cook share what they are cooking each day, all you need to
+              do is find who is cooking what you want to eat and pre-order to
+              save more time and money.
             </p>
-            <div className="grid grid-cols-2 gap-3">
-              {COOKS.map((cook) => (
-                <div
-                  key={cook.name}
-                  className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors"
-                >
-                  <div
-                    className={`w-11 h-11 rounded-full ${cook.color} flex-shrink-0 flex items-center justify-center text-lg`}
-                  >
-                    👩‍🍳
+
+            {/* Steps */}
+            <div className="relative">
+              {/* Vertical dashed connector line */}
+              <div
+                className="absolute left-2.75 top-8 bottom-8 w-px"
+                style={{
+                  background:
+                    "repeating-linear-gradient(to bottom, #d1d5db 0px, #d1d5db 6px, transparent 6px, transparent 12px)",
+                }}
+              />
+
+              <div className="space-y-8">
+                {STEPS.map(({ number, title, desc, thumb }) => (
+                  <div key={number} className="flex items-start gap-4">
+                    {/* Step number */}
+                    <div className="flex flex-col items-center shrink-0 w-6">
+                      <span className="text-sm font-bold text-gray-400 leading-none mt-1">
+                        {number}
+                      </span>
+                    </div>
+
+                    {/* Thumbnail */}
+                    <div
+                      className={`w-14 h-14 rounded-xl ${thumb.bg} shrink-0 flex items-center justify-center text-2xl overflow-hidden`}
+                    >
+                      {thumb.emoji}
+                    </div>
+
+                    {/* Text */}
+                    <div className="flex-1 pt-0.5">
+                      <p className="text-sm font-bold text-gray-900 mb-1">
+                        {title}
+                      </p>
+                      <p className="text-sm text-gray-500 leading-relaxed">
+                        {desc}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900 leading-tight">
-                      {cook.name}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-0.5">{cook.specialty}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
-          <div className="flex-1 flex items-center justify-center">
-            <div className="relative w-80 h-80">
-              <div className="absolute inset-0 bg-amber-50 rounded-3xl" />
-              <div className="absolute inset-4 bg-amber-100 rounded-2xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-7xl mb-3">🏠</div>
-                  <div className="text-2xl">🍳</div>
-                  <p className="text-xs text-amber-700 font-semibold mt-2">Home Kitchen</p>
-                </div>
-              </div>
-              <div className="absolute -top-3 -right-3 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow">
-                ✓ Verified
-              </div>
-              <div className="absolute -bottom-3 -left-3 bg-white text-gray-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-md border border-gray-100">
-                ⭐ 4.9 Rating
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* How it works */}
-        <div>
-          <div className="flex items-center justify-center gap-1.5 mb-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="w-2 h-2 rounded-full bg-green-600" />
-            ))}
-          </div>
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
-            How it works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {HOW_IT_WORKS.map(({ step, title, desc, icon }) => (
-              <div key={step} className="text-center">
-                <div className="relative inline-block mb-6">
-                  <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-3xl">
-                    {icon}
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-green-600 text-white text-xs font-bold flex items-center justify-center">
-                    {step.slice(1)}
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
-                <p className="text-gray-500 leading-relaxed text-sm">{desc}</p>
-              </div>
-            ))}
+          {/* ── Right column — Kitchen GIF ── */}
+          {/* overflow-hidden clips the built-in padding in the GIF frame */}
+          <div className="lg:w-[50%] w-full overflow-hidden flex items-center justify-center">
+            <Image
+              src="/OrderFromKitchen.gif"
+              alt="Home kitchen illustration"
+              width={900}
+              height={840}
+              className="w-full h-auto object-contain scale-[1.16]"
+              unoptimized
+            />
           </div>
         </div>
       </div>

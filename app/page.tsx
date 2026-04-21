@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import EventBanner from "./components/EventBanner";
 import TrustSection from "./components/TrustSection";
+import HowItWorksSection from "./components/HowItWorksSection";
 import BenefitsSection from "./components/BenefitsSection";
 import AppShowcaseSection from "./components/AppShowcaseSection";
 import EarningsSection from "./components/EarningsSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <HeroSection />
       <EventBanner />
       <TrustSection />
+      <HowItWorksSection />
       <BenefitsSection />
       <AppShowcaseSection />
       <EarningsSection />

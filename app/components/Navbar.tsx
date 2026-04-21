@@ -12,51 +12,49 @@ const navLinks = [
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 3C9.5 3 7 5 7 8c0 2 1 3.5 2.5 4.5V20h5v-7.5C16 11.5 17 10 17 8c0-3-2.5-5-5-5z"
-                  fill="white"
-                  opacity="0.9"
-                />
-                <circle cx="12" cy="8" r="2" fill="#4ade80" />
-              </svg>
-            </div>
-            <span className="font-bold text-xl text-gray-900 tracking-tight">
-              <span className="text-green-600">G</span>etameal
-            </span>
-          </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3 px-4">
+      {/* Floating pill container */}
+      <div className="w-full max-w-4xl bg-white rounded-2xl border border-gray-200 shadow-sm px-5 flex h-14 items-center justify-between">
 
-          {/* Nav links */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map(({ label, href, active }) => (
-              <Link
-                key={label}
-                href={href}
-                className={`text-sm font-medium transition-colors relative pb-1 ${
-                  active
-                    ? "text-green-600"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {label}
-                {active && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600 rounded-full" />
-                )}
-              </Link>
-            ))}
-          </div>
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-1.5 flex-shrink-0">
+          {/* Stylised circular-G mark */}
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" stroke="#111" strokeWidth="2.5" />
+            <path
+              d="M22 16h-4v3h2.5c-.5 1.5-2 2.5-4.5 2.5C13 21.5 11 19.5 11 16s2-5.5 5-5.5c1.5 0 2.8.6 3.7 1.5l1.8-1.8C20.1 8.8 18.2 8 16 8c-4.4 0-8 3.6-8 8s3.6 8 8 8c4.4 0 7.5-3 7.5-7.5V16H22z"
+              fill="#111"
+            />
+          </svg>
+          <span className="font-bold text-[18px] text-gray-900 tracking-tight leading-none">
+            etameal
+          </span>
+        </Link>
 
-          {/* CTA */}
-          <button className="bg-green-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-green-700 transition-colors shadow-sm">
-            Get a ticket
-          </button>
+        {/* Nav links */}
+        <div className="hidden md:flex items-center gap-7">
+          {navLinks.map(({ label, href, active }) => (
+            <Link
+              key={label}
+              href={href}
+              className={`text-sm transition-colors relative pb-0.5 ${
+                active
+                  ? "text-green-600 font-semibold"
+                  : "text-gray-600 font-medium hover:text-gray-900"
+              }`}
+            >
+              {label}
+              {active && (
+                <span className="absolute -bottom-0.5 left-0 right-0 h-[2.5px] bg-green-600 rounded-full" />
+              )}
+            </Link>
+          ))}
         </div>
+
+        {/* CTA */}
+        <button className="bg-green-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-green-700 transition-colors whitespace-nowrap">
+          Get a ticket
+        </button>
       </div>
     </nav>
   );
