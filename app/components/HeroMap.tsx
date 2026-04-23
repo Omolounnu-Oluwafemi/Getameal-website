@@ -4,11 +4,11 @@ import { useEffect, useRef } from "react";
 
 // Cook pins placed around Lagos Mainland / Lekki
 const COOK_PINS = [
-  { lat: 6.602, lng: 3.348, initials: "BF", color: "#f59e0b", name: "Babatunde" },
-  { lat: 6.578, lng: 3.315, initials: "MN", color: "#10b981", name: "Mama Ngozi" },
-  { lat: 6.625, lng: 3.385, initials: "AO", color: "#6366f1", name: "Aunty Ola" },
-  { lat: 6.558, lng: 3.362, initials: "EK", color: "#f43f5e", name: "Emeka" },
-  { lat: 6.612, lng: 3.420, initials: "FY", color: "#8b5cf6", name: "Funke Y." },
+  { lat: 6.602, lng: 3.348, img: "/people1.png", name: "Babatunde" },
+  { lat: 6.578, lng: 3.315, img: "/people2.png", name: "Mama Ngozi" },
+  { lat: 6.625, lng: 3.385, img: "/people3.png", name: "Aunty Ola" },
+  { lat: 6.558, lng: 3.362, img: "/people4.png", name: "Emeka" },
+  { lat: 6.612, lng: 3.420, img: "/people5.png", name: "Funke Y." },
 ];
 
 const MUNACHI_POS = { lat: 6.582, lng: 3.355 };
@@ -60,12 +60,10 @@ export default function HeroMap() {
         const icon = L.divIcon({
           html: `<div style="
             width:44px;height:44px;border-radius:50%;
-            background:${cook.color};border:3px solid white;
+            border:3px solid white;
             box-shadow:0 2px 8px rgba(0,0,0,0.25);
-            display:flex;align-items:center;justify-content:center;
-            color:white;font-weight:700;font-size:13px;font-family:sans-serif;
-            cursor:pointer;
-          ">${cook.initials}</div>`,
+            overflow:hidden;cursor:pointer;
+          "><img src="${cook.img}" style="width:100%;height:100%;object-fit:cover;object-position:top;" /></div>`,
           className: "",
           iconSize: [44, 44],
           iconAnchor: [22, 22],
@@ -78,12 +76,10 @@ export default function HeroMap() {
       const mIcon = L.divIcon({
         html: `<div style="
           width:52px;height:52px;border-radius:50%;
-          background:#f97316;border:3px solid white;
+          border:3px solid white;
           box-shadow:0 3px 12px rgba(0,0,0,0.3);
-          display:flex;align-items:center;justify-content:center;
-          color:white;font-weight:800;font-size:14px;font-family:sans-serif;
-          cursor:pointer;
-        ">MK</div>`,
+          overflow:hidden;cursor:pointer;
+        "><img src="/people1.png" style="width:100%;height:100%;object-fit:cover;object-position:top;" /></div>`,
         className: "",
         iconSize: [52, 52],
         iconAnchor: [26, 26],
