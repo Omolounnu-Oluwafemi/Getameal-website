@@ -1,6 +1,6 @@
 export default function HowItWorksSection() {
   return (
-    <section className="bg-gray-50 py-20 text-center">
+    <section className="bg-gray-50 py-20 text-center" id="how-it-works">
       <div className="max-w-2xl mx-auto px-4">
 
         {/* Avatar stack + social proof */}

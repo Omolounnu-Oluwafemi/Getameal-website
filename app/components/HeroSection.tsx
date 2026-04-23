@@ -52,89 +52,95 @@ const LOCATION_TAGS = [
   "Badagry",
 ];
 
-const AVATAR_COLORS = [
-  "bg-amber-400",
-  "bg-green-500",
-  "bg-orange-400",
-  "bg-teal-500",
-];
-const AVATAR_INITIALS = ["A", "B", "C", "D"];
-
 export default function HeroSection() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="pt-20 flex flex-col" style={{ minHeight: "100vh" }}>
+    <section className="pt-20 flex flex-col bg-[#F7F7F7] min-h-screen md:min-h-[140vh]">
       <Navbar />
       {/* Map + overlaid content */}
-      <div
-        className="relative flex-1 flex flex-col justify-between"
-        style={{ minHeight: "calc(100vh - 56px)" }}
-      >
+      <div className="relative flex-1 min-h-[calc(100vh-56px)] md:min-h-[calc(140vh-56px)]">
         {/* Leaflet map fills entire background */}
         <HeroMap />
 
-        {/* Subtle white top fade so text is readable */}
+        {/* White gradient — fully opaque at top, fades to transparent */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(175.41deg, #F7F7F7 20.67%, rgba(247, 247, 247, 0) 122.04%)",
             zIndex: 1,
           }}
         />
 
-        {/* Top — headline + form */}
+        {/* Top — headline + form overlaid on map */}
         <div
-          className="relative flex flex-col items-center px-4 pt-12"
+          className="absolute top-0 left-0 right-0 flex flex-col items-center px-4 md:pt-20 pt-7"
           style={{ zIndex: 2 }}
         >
           {/* Headline */}
-          <h1 className="text-center mb-3 leading-tight">
-            <span className="block text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800">
+          <h1 className="text-center mb-2 md:mb-6 leading-tight">
+            <span className="block text-[20px] sm:text-4xl md:text-[55px] font-semibold text-black">
               Pre-order Home Cooked Meals
             </span>
-            <span className="block text-4xl sm:text-5xl md:text-6xl font-black text-gray-900">
+            <span className="text-[32px] md:text-[75px] font-black text-black mt-2">
               From Cooks Around Lekki
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-center text-gray-600 max-w-lg text-sm sm:text-base leading-relaxed mb-5">
-            Instead of cooking every day or ordering food daily, you can buy
-            large portions of fresh meals from trusted home cooks near you and
-            store them for the week.
+          <p className="text-center text-[#797979] max-w-md md:max-w-215.5 text-sm sm:text-lg leading-relaxed mb-5">
+            <span className="md:hidden">
+              Buy large portions of fresh meals from trusted home cooks near you
+              and store them for the week.
+            </span>
+            <span className="hidden md:inline">
+              Instead of cooking every day or ordering food daily, you can buy
+              large portions of fresh meals from trusted home cooks near you and
+              store them for the week.
+            </span>
           </p>
 
           {/* Social proof avatars */}
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-5">
             <div className="flex -space-x-2">
-              {AVATAR_COLORS.map((color, i) => (
+              {[
+                "/people1.png",
+                "/people2.png",
+                "/people3.png",
+                "/people4.png",
+              ].map((src, i) => (
                 <div
                   key={i}
-                  className={`w-8 h-8 rounded-full ${color} border-2 border-white flex items-center justify-center text-xs font-bold text-white shadow-sm`}
+                  className="w-6 h-6 md:w-10 md:h-10 rounded-full border-2 border-white overflow-hidden shadow-sm"
                 >
-                  {AVATAR_INITIALS[i]}
+                  <Image
+                    src={src}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="object-cover object-top w-full h-full"
+                  />
                 </div>
               ))}
             </div>
-            <span className="text-sm text-gray-700 font-medium">
-              Over 500+ users already joined the waiting list
+            <span className="text-sm sm:text-base text-gray-700 font-medium">
+              Over 500+ users already joined
             </span>
           </div>
 
-          {/* Email form */}
-          <div className="flex w-full max-w-2xl bg-white rounded-full shadow-lg overflow-hidden border border-gray-100">
+          {/* Email form — stacked on mobile, pill on desktop */}
+          <div className="w-full max-w-lg flex flex-col sm:flex-row sm:bg-white sm:rounded-full sm:shadow-lg sm:border sm:border-gray-100 sm:overflow-hidden gap-3 sm:gap-0">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email to join"
-              className="flex-1 px-5 py-3.5 text-sm text-gray-700 focus:outline-none bg-transparent"
+              placeholder="Enter your email here"
+              className="flex-1 px-5 py-4 text-sm text-gray-700 focus:outline-none bg-white rounded-full shadow-lg border border-gray-100 sm:bg-transparent sm:rounded-none sm:shadow-none sm:border-0"
             />
             <button
               type="button"
-              className="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-6 py-3.5 rounded-full transition-colors whitespace-nowrap m-1"
+              className="bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold px-6 py-4 rounded-full transition-colors whitespace-nowrap sm:m-1"
             >
               Join waiting list
             </button>
@@ -143,8 +149,8 @@ export default function HeroSection() {
 
         {/* Bottom — Munachi's Kitchen card */}
         <div
-          className="relative flex justify-center pb-8 pt-20"
-          style={{ zIndex: 2 }}
+          className="hidden md:block absolute bottom-30 left-1/2 -translate-x-1/2"
+          style={{ zIndex: 3 }}
         >
           <Image
             src="/Munacard.svg"
@@ -163,14 +169,14 @@ export default function HeroSection() {
           to   { transform: translateX(-50%); }
         }
         .marquee-track {
-          animation: scroll-left 40s linear infinite;
+          animation: scroll-left 80s linear infinite;
           will-change: transform;
         }
         .marquee-track:hover {
           animation-play-state: paused;
         }
       `}</style>
-      <div className="bg-white border-t border-gray-200 overflow-hidden py-4">
+      <div className="bg-white border-t border-gray-200 overflow-hidden py-5 md:py-8">
         <div
           className="marquee-track"
           style={{ display: "flex", gap: "3rem", width: "max-content" }}
@@ -178,7 +184,7 @@ export default function HeroSection() {
           {[...LOCATION_TAGS, ...LOCATION_TAGS].map((loc, i) => (
             <span
               key={i}
-              className="text-sm font-bold text-gray-900 whitespace-nowrap"
+              className="text-[14px] md:text-[24px] font-bold text-gray-900 whitespace-nowrap"
             >
               {loc}
             </span>
