@@ -1,4 +1,5 @@
 import Image from "next/image";
+import GreenLogo from "../../public/greenLogo.svg";
 
 const STEPS = [
   {
@@ -23,13 +24,13 @@ const STEPS = [
 
 export default function TrustSection() {
   return (
-    <section className="py-24 bg-gray-50" id="how-it-works">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-40 bg-gray-50" id="how-it-works">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* ── Left column ── */}
-          <div className="lg:w-[50%] w-full">
+          <div className="lg:w-[45%] w-full">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-8 shadow-sm">
+            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-4 mb-8 shadow-sm">
               <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center shrink-0">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                   <path
@@ -38,21 +39,23 @@ export default function TrustSection() {
                   />
                   <circle cx="12" cy="8" r="2" fill="#4ade80" />
                 </svg>
+
+                {/* <GreenLogo /> */}
               </div>
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-[16px] font-500 text-gray-700">
                 For Customers
               </span>
             </div>
 
             {/* Heading */}
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight mb-5">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-5">
               Order from the
               <br />
               Kitchen you Trust
             </h2>
 
             {/* Subtitle */}
-            <p className="text-gray-500 leading-relaxed mb-10">
+            <p className="text-gray-500 leading-relaxed mb-14 text-[16px]">
               Every cook share what they are cooking each day, all you need to
               do is find who is cooking what you want to eat and pre-order to
               save more time and money.
@@ -74,24 +77,24 @@ export default function TrustSection() {
                   <div key={number} className="flex items-start gap-4">
                     {/* Step number */}
                     <div className="flex flex-col items-center shrink-0 w-6">
-                      <span className="text-sm font-bold text-gray-400 leading-none mt-1">
+                      <span className="text-sm font-bold text-black leading-none mt-1">
                         {number}
                       </span>
                     </div>
 
                     {/* Thumbnail */}
                     <div
-                      className={`w-14 h-14 rounded-xl ${thumb.bg} shrink-0 flex items-center justify-center text-2xl overflow-hidden`}
+                      className={`w-17.25 h-15.75 rounded-xl ${thumb.bg} shrink-0 flex items-center justify-center text-2xl overflow-hidden`}
                     >
                       {thumb.emoji}
                     </div>
 
                     {/* Text */}
                     <div className="flex-1 pt-0.5">
-                      <p className="text-sm font-bold text-gray-900 mb-1">
+                      <p className="text-[16px] font-semibold text-gray-900 mb-1">
                         {title}
                       </p>
-                      <p className="text-sm text-gray-500 leading-relaxed">
+                      <p className="text-sm text-gray-400 leading-relaxed">
                         {desc}
                       </p>
                     </div>
@@ -109,7 +112,7 @@ export default function TrustSection() {
               alt="Home kitchen illustration"
               width={900}
               height={840}
-              className="w-full h-auto object-contain scale-[1.16]"
+              className="w-full h-auto object-contain scale-[1.16] "
               unoptimized
             />
           </div>
