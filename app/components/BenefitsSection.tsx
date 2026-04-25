@@ -69,7 +69,7 @@ export default function BenefitsSection() {
         {BENEFITS.map((b) => (
           <div
             key={b.title}
-            className="bg-white rounded-[50px] shadow-md overflow-hidden flex flex-col lg:flex-row"
+            className="bg-white rounded-[50px] overflow-hidden flex flex-col lg:flex-row"
             style={{ minHeight: "500px" }}
           >
             {/* ── Text side ── */}
