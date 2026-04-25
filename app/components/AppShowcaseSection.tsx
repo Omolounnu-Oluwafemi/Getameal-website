@@ -93,6 +93,7 @@ export default function AppShowcaseSection() {
       </div>
 
       {/* Carousel */}
+      <div className="py-10 sm:py-16">
       <div className="relative" style={{ height: `${pH}px` }}>
         {/* ── Layer 1: Sliding strip (side peeks) ── */}
         <div
@@ -252,6 +253,7 @@ export default function AppShowcaseSection() {
           </div>
           {/* /outer phone body */}
         </div>
+      </div>
       </div>
     </section>
   );
