@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SLIDES = [
   "/page1.png",
@@ -18,24 +18,29 @@ const SLIDES = [
   "/page12.png",
 ];
 
+const N = SLIDES.length;
+const LOOP_SLIDES = [...SLIDES, ...SLIDES, ...SLIDES];
+
 // Screen sized to match screenshot ratio exactly (440 × 956)
 const SCREEN_W = 280;
-const SCREEN_H = Math.round((SCREEN_W * 956) / 440); // 586 px
+const SCREEN_H = Math.round((SCREEN_W * 956) / 440); // 608 px
 const BEZEL = 6; // phone border thickness
-const PHONE_W = SCREEN_W + BEZEL * 2; // 294 px
-const PHONE_H = SCREEN_H + BEZEL * 2; // 610 px
+const PHONE_W = SCREEN_W + BEZEL * 2; // 292 px
+const PHONE_H = SCREEN_H + BEZEL * 2; // 620 px
 const GAP = 24;
 // Side peeks are smaller than the phone frame
-const PEEK_W = Math.round(SCREEN_W * 0.72);
-const PEEK_H = Math.round(SCREEN_H * 0.72);
+const PEEK_W = Math.round(SCREEN_W * 0.88);
+const PEEK_H = Math.round(SCREEN_H * 0.88);
 
 export default function AppShowcaseSection() {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(N); // start at middle copy
+  const [animated, setAnimated] = useState(true);
   const [scale, setScale] = useState(1);
+  const resettingRef = useRef(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
+      setCurrent((prev) => prev + 1);
     }, 3000);
 
     const checkSize = () => setScale(window.innerWidth < 640 ? 0.9 : 1);
@@ -48,12 +53,40 @@ export default function AppShowcaseSection() {
     };
   }, []);
 
+  // When we reach the third copy, silently reset to middle copy
+  useEffect(() => {
+    if (current >= N * 2 && !resettingRef.current) {
+      resettingRef.current = true;
+      // Wait for the slide animation to finish, then jump back invisibly
+      const resetTimer = setTimeout(() => {
+        setAnimated(false);
+        setCurrent(N);
+        // Re-enable animation after the browser has painted the new position
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            setAnimated(true);
+            resettingRef.current = false;
+          })
+        );
+      }, 720); // slightly longer than 700ms transition
+      return () => clearTimeout(resetTimer);
+    }
+  }, [current]);
+
   // All dimensions scale together so layout stays consistent
   const pW = Math.round(PHONE_W * scale);
   const pH = Math.round(PHONE_H * scale);
   const pkW = Math.round(PEEK_W * scale);
   const pkH = Math.round(PEEK_H * scale);
   const step = pkW + GAP;
+
+  const activeIdx = current % N;
+  // Strip scrolls with a standard ease; inner slides use a snappy expo-out with scale
+  const stripTransition = animated ? "transform 700ms ease-in-out" : "none";
+  const slideTransition = animated
+    ? "transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 650ms cubic-bezier(0.16, 1, 0.3, 1)"
+    : "none";
+  const opacityTransition = animated ? "opacity 700ms ease-in-out" : "none";
 
   return (
     <section className="pb-24 bg-gray-50 overflow-hidden">
@@ -94,166 +127,171 @@ export default function AppShowcaseSection() {
 
       {/* Carousel */}
       <div className="py-10 sm:py-16">
-      <div className="relative" style={{ height: `${pH}px` }}>
-        {/* ── Layer 1: Sliding strip (side peeks) ── */}
-        <div
-          className="absolute top-0 flex items-center h-full"
-          style={{
-            gap: `${GAP}px`,
-            paddingLeft: `calc(50vw - ${pkW / 2}px)`,
-            paddingRight: `calc(50vw - ${pkW / 2}px)`,
-            transform: `translateX(-${current * step}px)`,
-            transition: "transform 700ms ease-in-out",
-          }}
-        >
-          {SLIDES.map((src, i) => (
-            <div
-              key={i}
-              className="relative shrink-0 overflow-hidden rounded-[10%]"
-              style={{
-                width: `${pkW}px`,
-                height: `${pkH}px`,
-                opacity: i === current ? 0 : 0.45,
-                transition: "opacity 700ms ease-in-out",
-              }}
-            >
-              <Image
-                src={src}
-                alt={`App screen ${i + 1}`}
-                fill
-                className="object-cover object-top"
-                sizes="300px"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* ── Layer 2: Static CSS phone frame ──
-            Sized to screenshot ratio so the screen area is a perfect fit. */}
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2"
-          style={{ width: `${pW}px`, height: `${pH}px` }}
-        >
-          {/* Phone body — outer ring: lighter black */}
+        <div className="relative" style={{ height: `${pH}px` }}>
+          {/* ── Layer 1: Sliding strip (side peeks) ── */}
           <div
-            className="w-full h-full relative"
+            className="absolute top-0 flex items-center h-full"
             style={{
-              background: "#2d2d2d",
-              borderRadius: 44,
-              padding: 3,
-              boxShadow:
-                "0 0 0 1px rgba(255,255,255,0.09), 0 20px 60px rgba(0,0,0,0.9)",
+              gap: `${GAP}px`,
+              paddingLeft: `calc(50vw - ${pkW / 2}px)`,
+              paddingRight: `calc(50vw - ${pkW / 2}px)`,
+              transform: `translateX(-${current * step}px)`,
+              transition: stripTransition,
             }}
           >
-            {/* Power button (right) */}
-            <div
-              className="absolute"
-              style={{
-                right: -5,
-                top: "28%",
-                width: 5,
-                height: "13%",
-                background: "linear-gradient(to right, #3a3a3a, #222)",
-                borderRadius: "0 3px 3px 0",
-                boxShadow: "1px 0 2px rgba(0,0,0,0.15)",
-              }}
-            />
-            {/* Silent switch (left) */}
-            <div
-              className="absolute"
-              style={{
-                left: -5,
-                top: "16%",
-                width: 5,
-                height: "4.5%",
-                background: "linear-gradient(to left, #3a3a3a, #222)",
-                borderRadius: "3px 0 0 3px",
-                boxShadow: "-1px 0 2px rgba(0,0,0,0.15)",
-              }}
-            />
-            {/* Volume up (left) */}
-            <div
-              className="absolute"
-              style={{
-                left: -5,
-                top: "23%",
-                width: 5,
-                height: "8%",
-                background: "linear-gradient(to left, #3a3a3a, #222)",
-                borderRadius: "3px 0 0 3px",
-                boxShadow: "-1px 0 2px rgba(0,0,0,0.15)",
-              }}
-            />
-            {/* Volume down (left) */}
-            <div
-              className="absolute"
-              style={{
-                left: -5,
-                top: "33%",
-                width: 5,
-                height: "8%",
-                background: "linear-gradient(to left, #3a3a3a, #222)",
-                borderRadius: "3px 0 0 3px",
-                boxShadow: "-1px 0 2px rgba(0,0,0,0.15)",
-              }}
-            />
+            {LOOP_SLIDES.map((src, i) => (
+              <div
+                key={i}
+                className="relative shrink-0 overflow-hidden rounded-[10%]"
+                style={{
+                  width: `${pkW}px`,
+                  height: `${pkH}px`,
+                  opacity: i === current ? 0 : 0.45,
+                  transition: opacityTransition,
+                }}
+              >
+                <Image
+                  src={src}
+                  alt={`App screen ${(i % N) + 1}`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="300px"
+                />
+              </div>
+            ))}
+          </div>
 
-            {/* Inner ring — darker black, sits just inside the outer lighter ring */}
+          {/* ── Layer 2: Static CSS phone frame ──
+              Sized to screenshot ratio so the screen area is a perfect fit. */}
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2"
+            style={{ width: `${pW}px`, height: `${pH}px` }}
+          >
+            {/* Phone body — outer ring: lighter black */}
             <div
-              className="w-full h-full"
+              className="w-full h-full relative"
               style={{
-                background: "#080808",
-                borderRadius: 41,
+                background: "#2d2d2d",
+                borderRadius: 44,
                 padding: 3,
+                boxShadow:
+                  "0 0 0 1px rgba(255,255,255,0.09), 0 20px 60px rgba(0,0,0,0.9)",
               }}
             >
-              {/* Screen area — clips screenshots, matches 440×956 ratio exactly */}
+              {/* Power button (right) */}
               <div
-                className="relative overflow-hidden bg-black w-full h-full"
-                style={{ borderRadius: 38 }}
-              >
-                {/* Dynamic island */}
-                <div
-                  className="absolute z-20"
-                  style={{
-                    top: 10,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "35%",
-                    height: 26,
-                    background: "#000",
-                    borderRadius: 13,
-                  }}
-                />
+                className="absolute"
+                style={{
+                  right: -5,
+                  top: "28%",
+                  width: 5,
+                  height: "13%",
+                  background: "linear-gradient(to right, #3a3a3a, #222)",
+                  borderRadius: "0 3px 3px 0",
+                  boxShadow: "1px 0 2px rgba(0,0,0,0.15)",
+                }}
+              />
+              {/* Silent switch (left) */}
+              <div
+                className="absolute"
+                style={{
+                  left: -5,
+                  top: "16%",
+                  width: 5,
+                  height: "4.5%",
+                  background: "linear-gradient(to left, #3a3a3a, #222)",
+                  borderRadius: "3px 0 0 3px",
+                  boxShadow: "-1px 0 2px rgba(0,0,0,0.15)",
+                }}
+              />
+              {/* Volume up (left) */}
+              <div
+                className="absolute"
+                style={{
+                  left: -5,
+                  top: "23%",
+                  width: 5,
+                  height: "8%",
+                  background: "linear-gradient(to left, #3a3a3a, #222)",
+                  borderRadius: "3px 0 0 3px",
+                  boxShadow: "-1px 0 2px rgba(0,0,0,0.15)",
+                }}
+              />
+              {/* Volume down (left) */}
+              <div
+                className="absolute"
+                style={{
+                  left: -5,
+                  top: "33%",
+                  width: 5,
+                  height: "8%",
+                  background: "linear-gradient(to left, #3a3a3a, #222)",
+                  borderRadius: "3px 0 0 3px",
+                  boxShadow: "-1px 0 2px rgba(0,0,0,0.15)",
+                }}
+              />
 
-                {/* Sliding screenshots */}
-                {SLIDES.map((src, i) => (
+              {/* Inner ring — darker black, sits just inside the outer lighter ring */}
+              <div
+                className="w-full h-full"
+                style={{
+                  background: "#080808",
+                  borderRadius: 41,
+                  padding: 3,
+                }}
+              >
+                {/* Screen area — clips screenshots, matches 440×956 ratio exactly */}
+                <div
+                  className="relative overflow-hidden bg-black w-full h-full"
+                  style={{ borderRadius: 38 }}
+                >
+                  {/* Dynamic island */}
                   <div
-                    key={i}
-                    className="absolute inset-0"
+                    className="absolute z-20"
                     style={{
-                      transform: `translateX(${(i - current) * 100}%)`,
-                      transition: "transform 700ms ease-in-out",
+                      top: 10,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "35%",
+                      height: 26,
+                      background: "#000",
+                      borderRadius: 13,
                     }}
-                  >
-                    <Image
-                      src={src}
-                      alt=""
-                      fill
-                      className="object-cover object-top"
-                      sizes="300px"
-                      priority={i < 3}
-                    />
-                  </div>
-                ))}
+                  />
+
+                  {/* Sliding screenshots — only the 12 real slides needed here */}
+                  {SLIDES.map((src, i) => {
+                    const offset = i - activeIdx;
+                    const isActive = offset === 0;
+                    return (
+                    <div
+                      key={i}
+                      className="absolute inset-0"
+                      style={{
+                        transform: `translateX(${offset * 100}%) scale(${isActive ? 1 : 0.88})`,
+                        opacity: isActive ? 1 : 0.5,
+                        transition: slideTransition,
+                      }}
+                    >
+                      <Image
+                        src={src}
+                        alt=""
+                        fill
+                        className="object-cover object-top"
+                        sizes="300px"
+                        priority={i < 3}
+                      />
+                    </div>
+                  );
+                  })}
+                </div>
+                {/* /screen area */}
               </div>
-              {/* /screen area */}
+              {/* /inner ring */}
             </div>
-            {/* /inner ring */}
+            {/* /outer phone body */}
           </div>
-          {/* /outer phone body */}
         </div>
-      </div>
       </div>
     </section>
   );
