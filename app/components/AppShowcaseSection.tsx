@@ -66,7 +66,7 @@ export default function AppShowcaseSection() {
           requestAnimationFrame(() => {
             setAnimated(true);
             resettingRef.current = false;
-          })
+          }),
         );
       }, 720); // slightly longer than 700ms transition
       return () => clearTimeout(resetTimer);
@@ -89,7 +89,7 @@ export default function AppShowcaseSection() {
   const opacityTransition = animated ? "opacity 700ms ease-in-out" : "none";
 
   return (
-    <section className="pb-24 bg-gray-50 overflow-hidden">
+    <section className="pb-10 bg-gray-50 overflow-hidden">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
         <div className="inline-flex items-center gap-2 bg-[#F7F7F7] border border-[#E1E1E1] rounded-full px-4 py-3 mb-4">
@@ -264,25 +264,25 @@ export default function AppShowcaseSection() {
                     const offset = i - activeIdx;
                     const isActive = offset === 0;
                     return (
-                    <div
-                      key={i}
-                      className="absolute inset-0"
-                      style={{
-                        transform: `translateX(${offset * 100}%) scale(${isActive ? 1 : 0.88})`,
-                        opacity: isActive ? 1 : 0.5,
-                        transition: slideTransition,
-                      }}
-                    >
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        className="object-cover object-top"
-                        sizes="300px"
-                        priority={i < 3}
-                      />
-                    </div>
-                  );
+                      <div
+                        key={i}
+                        className="absolute inset-0"
+                        style={{
+                          transform: `translateX(${offset * 100}%) scale(${isActive ? 1 : 0.88})`,
+                          opacity: isActive ? 1 : 0.5,
+                          transition: slideTransition,
+                        }}
+                      >
+                        <Image
+                          src={src}
+                          alt=""
+                          fill
+                          className="object-cover object-top"
+                          sizes="300px"
+                          priority={i < 3}
+                        />
+                      </div>
+                    );
                   })}
                 </div>
                 {/* /screen area */}
