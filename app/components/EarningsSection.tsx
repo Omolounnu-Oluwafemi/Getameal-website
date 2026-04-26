@@ -104,7 +104,7 @@ export default function EarningsSection() {
           </p>
 
           {/* Dual-handle visual slider */}
-          <div className="relative mb-14 px-2">
+          <div className="relative mb-10 sm:mb-14 px-2">
             {/* Floating labels above handles */}
             <div className="relative h-8 mb-1">
               <div
@@ -185,6 +185,26 @@ export default function EarningsSection() {
         .cards-track:hover {
           animation-play-state: paused;
         }
+        .cook-card {
+          width: 220px;
+          height: 237px;
+          padding: 20px 16px;
+        }
+        .cook-avatar {
+          width: 100px;
+          height: 100px;
+        }
+        @media (min-width: 640px) {
+          .cook-card {
+            width: 335px;
+            height: 405px;
+            padding: 32px 24px 28px;
+          }
+          .cook-avatar {
+            width: 160px;
+            height: 160px;
+          }
+        }
       `}</style>
 
       <div className="overflow-hidden py-2">
@@ -196,34 +216,26 @@ export default function EarningsSection() {
           {[...COOKS, ...COOKS].map((cook, i) => (
             <div
               key={i}
-              className="bg-gray-100 rounded-[30px] flex flex-col items-center shrink-0 "
-              style={{
-                width: "335px",
-                minHeight: "405px",
-                padding: "32px 24px 28px",
-              }}
+              className="cook-card bg-gray-100 rounded-[30px] flex flex-col items-center shrink-0"
             >
               {/* Avatar */}
-              <div
-                className="rounded-full overflow-hidden shrink-0 my-11"
-                style={{ width: "160px", height: "160px" }}
-              >
+              <div className="cook-avatar rounded-full overflow-hidden shrink-0 my-4">
                 <Image
                   src={cook.image}
                   alt={cook.name}
-                  width={156}
-                  height={156}
+                  width={160}
+                  height={160}
                   className="w-full h-full object-cover object-top"
                 />
               </div>
 
               {/* Name */}
-              <p className="font-semibold text-black text-2xl mb-2 text-center">
+              <p className="font-semibold text-black text-sm sm:text-2xl mb-2 text-center">
                 {cook.name}
               </p>
 
               {/* Location */}
-              <div className="flex items-center gap-1.5 text-black text-sm">
+              <div className="flex items-center gap-1.5 text-black text-[12px] sm:text-sm">
                 <Image src="/location.svg" alt="" width={18} height={18} />
                 <span>{cook.location}</span>
               </div>
