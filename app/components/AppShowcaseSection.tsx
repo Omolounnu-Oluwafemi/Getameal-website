@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 const SLIDES = [
   "/page1.png",
@@ -91,7 +92,13 @@ export default function AppShowcaseSection() {
   return (
     <section className="pb-10 bg-gray-50 overflow-hidden">
       {/* Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+      <motion.div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <div className="inline-flex items-center gap-2 bg-[#F7F7F7] border border-[#E1E1E1] rounded-full px-4 py-3 mb-4">
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4, 5].map((i) => (
@@ -123,7 +130,7 @@ export default function AppShowcaseSection() {
           portions of fresh meals from trusted home cooks near you and store
           them for the week.
         </p>
-      </div>
+      </motion.div>
 
       {/* Carousel */}
       <div className="py-10 sm:py-16">

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const BENEFITS = [
   {
@@ -53,12 +54,7 @@ const BENEFITS = [
   },
 ];
 
-const AVATAR_IMAGES = [
-  "/joined1.png",
-  "/joined2.png",
-  "/joined3.png",
-  "/joined4.png",
-];
+const AVATAR_IMAGES = ["/joined1.png", "/joined2.png", "/joined3.png", "/joined4.png"];
 
 export default function BenefitsSection() {
   const [email, setEmail] = useState("");
@@ -66,53 +62,47 @@ export default function BenefitsSection() {
   return (
     <section className="bg-gray-50 py-10 pb-24" id="for-customers">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        {BENEFITS.map((b) => (
-          <div
+        {BENEFITS.map((b, cardIdx) => (
+          <motion.div
             key={b.title}
             className="bg-white rounded-[50px] overflow-hidden flex flex-col lg:flex-row"
             style={{ minHeight: "500px" }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: cardIdx * 0.05 }}
           >
-            {/* ── Text side ── */}
-            <div className="lg:w-[55%] px-8 sm:px-12 py-12 sm:py-16 flex flex-col justify-center">
+            {/* Text side */}
+            <motion.div
+              className="lg:w-[55%] px-8 sm:px-12 py-12 sm:py-16 flex flex-col justify-center"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 + cardIdx * 0.05 }}
+            >
               <h3 className="text-2xl sm:text-4xl font-black text-gray-900 mb-6 leading-tight">
                 {b.title}
               </h3>
 
               {b.body.map((para, i) => (
-                <p
-                  key={i}
-                  className="text-gray-400 text-sm sm:text-[18px] leading-relaxed mb-4"
-                >
+                <p key={i} className="text-gray-400 text-sm sm:text-[18px] leading-relaxed mb-4">
                   {para}
                 </p>
               ))}
 
-              {/* Social proof row */}
               {b.social && (
                 <div className="flex items-center gap-3 mt-3 mb-6">
                   <div className="flex -space-x-2">
                     {AVATAR_IMAGES.map((src, i) => (
-                      <div
-                        key={i}
-                        className="w-9 h-9 rounded-full border-2 border-white overflow-hidden"
-                      >
-                        <Image
-                          src={src}
-                          alt=""
-                          width={36}
-                          height={36}
-                          className="w-full h-full object-cover object-top"
-                        />
+                      <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden">
+                        <Image src={src} alt="" width={36} height={36} className="w-full h-full object-cover object-top" />
                       </div>
                     ))}
                   </div>
-                  <span className="text-sm text-gray-500 font-medium">
-                    {b.social}
-                  </span>
+                  <span className="text-sm text-gray-500 font-medium">{b.social}</span>
                 </div>
               )}
 
-              {/* Email form (first card only) */}
               {b.hasEmailForm && (
                 <div className="flex flex-col gap-3">
                   <input
@@ -128,32 +118,20 @@ export default function BenefitsSection() {
                 </div>
               )}
 
-              {/* Bullet list */}
               {b.bulletsLabel && b.bullets && (
                 <div className="mt-5">
-                  <p className="text-sm font-bold text-gray-900 mb-3">
-                    {b.bulletsLabel}
-                  </p>
+                  <p className="text-sm font-bold text-gray-900 mb-3">{b.bulletsLabel}</p>
                   <ul className="space-y-2.5">
                     {b.bullets.map((point) => (
                       <li key={point} className="flex items-start gap-2.5">
-                        <Image
-                          src="/bullet.svg"
-                          alt=""
-                          width={18}
-                          height={18}
-                          className="shrink-0 mt-0.5"
-                        />
-                        <span className="text-sm sm:text-[18px] text-gray-400">
-                          {point}
-                        </span>
+                        <Image src="/bullet.svg" alt="" width={18} height={18} className="shrink-0 mt-0.5" />
+                        <span className="text-sm sm:text-[18px] text-gray-400">{point}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              {/* CTA */}
               {b.ctaLabel && (
                 <div className="mt-8">
                   <button className="w-full sm:w-76.25 bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold px-8 py-3.5 rounded-full transition-colors">
@@ -161,24 +139,22 @@ export default function BenefitsSection() {
                   </button>
                 </div>
               )}
-            </div>
+            </motion.div>
 
-            {/* ── Image side ── */}
-            <div
+            {/* Image side */}
+            <motion.div
               className="lg:w-[55%] p-4 lg:p-6 flex items-center"
               style={{ minHeight: "400px" }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 + cardIdx * 0.05 }}
             >
               <div className="relative w-full rounded-3xl overflow-hidden h-88.5 lg:h-full lg:min-h-125">
-                <Image
-                  src={b.image}
-                  alt={b.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+                <Image src={b.image} alt={b.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         ))}
       </div>
     </section>

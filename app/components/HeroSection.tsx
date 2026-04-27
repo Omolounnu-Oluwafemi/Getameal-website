@@ -4,52 +4,18 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import { motion } from "framer-motion";
 
-// Load map client-side only to avoid SSR issues with Leaflet
 const HeroMap = dynamic(() => import("./HeroMap"), { ssr: false });
 
 const LOCATION_TAGS = [
-  "Lekki Phase 1",
-  "Lekki Phase 2",
-  "Ajah",
-  "Maryland",
-  "Ikeja",
-  "Jakande",
-  "Sangotedo",
-  "Festac",
-  "VGC",
-  "Ikoyi",
-  "Victoria Island",
-  "Surulere",
-  "Yaba",
-  "Gbagada",
-  "Magodo",
-  "Ojodu Berger",
-  "Ogba",
-  "Isolo",
-  "Oshodi",
-  "Ogudu",
-  "Oniru",
-  "Chevron",
-  "Abraham Adesanya",
-  "Osapa London",
-  "Ikate",
-  "Ilasan",
-  "Agungi",
-  "Idado",
-  "Shangisha",
-  "Ketu",
-  "Mile 12",
-  "Ikorodu",
-  "Apapa",
-  "Orile",
-  "Amuwo-Odofin",
-  "Agege",
-  "Ojota",
-  "Egbeda",
-  "Idimu",
-  "Satellite Town",
-  "Badagry",
+  "Lekki Phase 1", "Lekki Phase 2", "Ajah", "Maryland", "Ikeja", "Jakande",
+  "Sangotedo", "Festac", "VGC", "Ikoyi", "Victoria Island", "Surulere", "Yaba",
+  "Gbagada", "Magodo", "Ojodu Berger", "Ogba", "Isolo", "Oshodi", "Ogudu",
+  "Oniru", "Chevron", "Abraham Adesanya", "Osapa London", "Ikate", "Ilasan",
+  "Agungi", "Idado", "Shangisha", "Ketu", "Mile 12", "Ikorodu", "Apapa",
+  "Orile", "Amuwo-Odofin", "Agege", "Ojota", "Egbeda", "Idimu",
+  "Satellite Town", "Badagry",
 ];
 
 export default function HeroSection() {
@@ -58,12 +24,9 @@ export default function HeroSection() {
   return (
     <section className="pt-20 flex flex-col bg-[#F7F7F7] min-h-screen md:min-h-[140vh]">
       <Navbar />
-      {/* Map + overlaid content */}
       <div className="relative flex-1 min-h-[calc(100vh-56px)] md:min-h-[calc(140vh-56px)]">
-        {/* Leaflet map fills entire background */}
         <HeroMap />
 
-        {/* White gradient — fully opaque at top, fades to transparent */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -73,23 +36,30 @@ export default function HeroSection() {
           }}
         />
 
-        {/* Top — headline + form overlaid on map */}
         <div
           className="absolute top-0 left-0 right-0 flex flex-col items-center px-4 md:pt-20 pt-7"
           style={{ zIndex: 2 }}
         >
-          {/* Headline */}
-          <h1 className="text-center mb-2 md:mb-6 leading-tight">
+          <motion.h1
+            className="text-center mb-2 md:mb-6 leading-tight"
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
             <span className="block text-[20px] sm:text-4xl md:text-[55px] font-semibold text-black">
               Pre-order Home Cooked Meals
             </span>
             <span className="text-[32px] md:text-[75px] font-black text-black mt-2">
               From Cooks Around Lekki
             </span>
-          </h1>
+          </motion.h1>
 
-          {/* Subtitle */}
-          <p className="text-center text-[#797979] max-w-md md:max-w-215.5 text-sm sm:text-lg leading-relaxed mb-5">
+          <motion.p
+            className="text-center text-[#797979] max-w-md md:max-w-215.5 text-sm sm:text-lg leading-relaxed mb-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
             <span className="md:hidden">
               Buy large portions of fresh meals from trusted home cooks near you
               and store them for the week.
@@ -99,38 +69,32 @@ export default function HeroSection() {
               large portions of fresh meals from trusted home cooks near you and
               store them for the week.
             </span>
-          </p>
+          </motion.p>
 
-          {/* Social proof avatars */}
-          <div className="flex items-center gap-3 mb-5">
+          <motion.div
+            className="flex items-center gap-3 mb-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.35 }}
+          >
             <div className="flex -space-x-2">
-              {[
-                "/people1.png",
-                "/people2.png",
-                "/people3.png",
-                "/people4.png",
-              ].map((src, i) => (
-                <div
-                  key={i}
-                  className="w-6 h-6 md:w-10 md:h-10 rounded-full border-2 border-white overflow-hidden shadow-sm"
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    width={40}
-                    height={40}
-                    className="object-cover object-top w-full h-full"
-                  />
+              {["/people1.png", "/people2.png", "/people3.png", "/people4.png"].map((src, i) => (
+                <div key={i} className="w-6 h-6 md:w-10 md:h-10 rounded-full border-2 border-white overflow-hidden shadow-sm">
+                  <Image src={src} alt="" width={40} height={40} className="object-cover object-top w-full h-full" />
                 </div>
               ))}
             </div>
             <span className="text-sm sm:text-base text-gray-700 font-medium">
               Over 500+ users already joined
             </span>
-          </div>
+          </motion.div>
 
-          {/* Email form — stacked on mobile, pill on desktop */}
-          <div className="w-full max-w-lg flex flex-col sm:flex-row sm:bg-white sm:rounded-full sm:shadow-lg sm:border sm:border-gray-100 sm:overflow-hidden gap-3 sm:gap-0">
+          <motion.div
+            className="w-full max-w-lg flex flex-col sm:flex-row sm:bg-white sm:rounded-full sm:shadow-lg sm:border sm:border-gray-100 sm:overflow-hidden gap-3 sm:gap-0"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
+          >
             <input
               type="email"
               value={email}
@@ -144,13 +108,15 @@ export default function HeroSection() {
             >
               Join waiting list
             </button>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Bottom — Munachi's Kitchen card */}
-        <div
+        <motion.div
           className="hidden md:block absolute bottom-30 left-1/2 -translate-x-1/2"
           style={{ zIndex: 3 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.7 }}
         >
           <Image
             src="/Munacard.svg"
@@ -159,10 +125,9 @@ export default function HeroSection() {
             height={320}
             className="rounded-3xl"
           />
-        </div>
+        </motion.div>
       </div>
 
-      {/* Location marquee bar — full-width, scrolls right to left */}
       <style>{`
         @keyframes scroll-left {
           from { transform: translateX(0); }
@@ -177,15 +142,9 @@ export default function HeroSection() {
         }
       `}</style>
       <div className="bg-white border-t border-gray-200 overflow-hidden py-5 md:py-8">
-        <div
-          className="marquee-track"
-          style={{ display: "flex", gap: "3rem", width: "max-content" }}
-        >
+        <div className="marquee-track" style={{ display: "flex", gap: "3rem", width: "max-content" }}>
           {[...LOCATION_TAGS, ...LOCATION_TAGS].map((loc, i) => (
-            <span
-              key={i}
-              className="text-[14px] md:text-[24px] font-bold text-gray-900 whitespace-nowrap"
-            >
+            <span key={i} className="text-[14px] md:text-[24px] font-bold text-gray-900 whitespace-nowrap">
               {loc}
             </span>
           ))}

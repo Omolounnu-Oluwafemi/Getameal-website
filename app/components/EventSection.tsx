@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const ACTIVITIES = [
   {
@@ -46,7 +47,13 @@ export default function EventSection() {
             .event-photo { height: 467px; }
             @media (min-width: 1024px) { .event-photo { width: 700px; height: 700px; flex-shrink: 0; } }
           `}</style>
-          <div className="event-photo relative overflow-hidden rounded-2xl lg:rounded-[40px]">
+          <motion.div
+            className="event-photo relative overflow-hidden rounded-2xl lg:rounded-[40px]"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <Image
               src="/siplady.png"
               alt="Taste. Sip. Play. Connect. event"
@@ -54,10 +61,16 @@ export default function EventSection() {
               className="object-cover object-top"
               sizes="(max-width: 1024px) 100vw, 600px"
             />
-          </div>
+          </motion.div>
 
           {/* Right — content */}
-          <div className="flex-1 w-full">
+          <motion.div
+            className="flex-1 w-full"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+          >
             <h2 className="text-2xl sm:text-5xl font-black text-gray-900 leading-none mb-4">
               Taste. Sip. Play.
               <br />
@@ -126,7 +139,7 @@ export default function EventSection() {
                 Over 50+ people already joined
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

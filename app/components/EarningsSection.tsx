@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const COOKS = [
   {
@@ -50,28 +51,52 @@ export default function EarningsSection() {
     <section className="bg-white py-10 lg:py-24 text-center" id="for-cooks">
       <div className="max-w-3xl mx-auto px-2 sm:px-4">
         {/* "For Cooks" badge */}
-        <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-6 py-4 mb-10 shadow-sm">
+        <motion.div
+          className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-6 py-4 mb-10 shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <Image src="/cookIcon.svg" alt="" width={24} height={24} />
           <span className="text-sm sm:text-[16px] font-semibold text-gray-700">
             For Cooks
           </span>
-        </div>
+        </motion.div>
 
         {/* Main heading */}
-        <h2 className="text-3xl sm:text-[64px] font-black text-gray-900 leading-tight">
+        <motion.h2
+          className="text-3xl sm:text-[64px] font-black text-gray-900 leading-tight"
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+        >
           You could make
           <br />
           <span className="text-green-600">₦200,540</span> every week
-        </h2>
+        </motion.h2>
 
         {/* Subtitle */}
-        <p className="text-gray-400 text-[16px] leading-relaxed mb-8 max-w-2xl mx-auto">
+        <motion.p
+          className="text-gray-400 text-[16px] leading-relaxed mb-8 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
+        >
           You only cook when you want to, no pressure. Get what you made
           credited straight to your account every week.
-        </p>
+        </motion.p>
 
         {/* Social proof */}
-        <div className="flex flex-col items-center gap-2 mb-10 mt-4 sm:mt-16">
+        <motion.div
+          className="flex flex-col items-center gap-2 mb-10 mt-4 sm:mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+        >
           {/* Center avatar is largest; sizes taper symmetrically outward */}
           <div className="flex items-center -space-x-2">
             {[28, 48, 70, 48, 28].map((size, i) => (
@@ -93,10 +118,16 @@ export default function EarningsSection() {
           <p className="text-sm text-[#5C5C5C]">
             Over 50+ cooks already joined the waiting list
           </p>
-        </div>
+        </motion.div>
 
         {/* Earnings calculator */}
-        <div className="sm:px-6 sm:py-6 mb-8">
+        <motion.div
+          className="sm:px-6 sm:py-6 mb-8"
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+        >
           {/* Summary line */}
           <p className="text-[16px] font-semibold text-black mb-14">
             {days} times, {meals} meals a week&nbsp;&nbsp;|&nbsp;&nbsp; ₦
@@ -169,7 +200,7 @@ export default function EarningsSection() {
           <button className="cursor-pointer w-full bg-[#209D01] hover:bg-green-600 text-white font-semibold py-3 rounded-full text-base transition-colors">
             Join as a Cook
           </button>
-        </div>
+        </motion.div>
       </div>
 
       {/* Cook cards — infinite auto-scroll */}

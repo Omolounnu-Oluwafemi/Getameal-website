@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 const PAIRS = [
   {
@@ -105,7 +106,13 @@ export default function TestimonialsSection() {
   return (
     <section className="py-10 sm:py-20 bg-[#F7F7F7] overflow-hidden">
       {/* Heading */}
-      <div className="text-center mb-16 px-4">
+      <motion.div
+        className="text-center mb-16 px-4"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <h2 className="text-2xl sm:text-6xl font-black text-black mb-4">
           What People Are Saying
         </h2>
@@ -113,7 +120,7 @@ export default function TestimonialsSection() {
           Early reactions from customers and cooks who have seen the vision of
           Getameal ahead of July 4.
         </p>
-      </div>
+      </motion.div>
 
       {/* Scrolling strip — moves one pair at a time */}
       <div className="overflow-hidden">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const FAQS = [
   {
@@ -29,39 +30,22 @@ const FAQS = [
   },
 ];
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+};
+
 const PlusIcon = () => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-    fill="none"
-    className="shrink-0"
-  >
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="shrink-0">
     <circle cx="16" cy="16" r="15" stroke="#000000" strokeWidth="1.5" />
-    <path
-      d="M10 16h12M16 10v12"
-      stroke="#374151"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
+    <path d="M10 16h12M16 10v12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
   </svg>
 );
 
 const MinusIcon = () => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-    fill="none"
-    className="shrink-0"
-  >
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="shrink-0">
     <circle cx="16" cy="16" r="15" stroke="#000000" strokeWidth="1.5" />
-    <path
-      d="M10 16h12"
-      stroke="#374151"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-    />
+    <path d="M10 16h12" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" />
   </svg>
 );
 
@@ -70,27 +54,34 @@ export default function FAQSection() {
 
   return (
     <section className="pb-10 sm:pb-20 bg-[#F7F7F7]">
-      <div className="text-center mb-14 px-4">
+      <motion.div
+        className="text-center mb-14 px-4"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         <h2 className="text-2xl sm:text-[64px] font-black text-black mb-2">
-          Let’s Clear Things Up
+          Let&apos;s Clear Things Up
         </h2>
         <p className="text-[#222222] text-sm sm:text-[20px] max-w-125 mx-auto leading-relaxed">
-          Transparency matters. Here’s how Getameal is built to work for both
+          Transparency matters. Here&apos;s how Getameal is built to work for both
           customers and cooks.
         </p>
-      </div>
+      </motion.div>
+
       <div className="mx-auto px-4" style={{ maxWidth: "910px" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-            // minHeight: "530px",
-          }}
+        <motion.div
+          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
         >
           {FAQS.map((faq, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={itemVariants}
               className="bg-white rounded-[20px] overflow-hidden shadow-sm"
             >
               <div className="w-full flex items-center justify-between px-8 py-6 text-left">
@@ -104,15 +95,19 @@ export default function FAQSection() {
                   {open === i ? <MinusIcon /> : <PlusIcon />}
                 </button>
               </div>
-
               {open === i && (
-                <div className="px-8 pb-7 text-black font-regular leading-relaxed text-sm sm:text-base">
+                <motion.div
+                  className="px-8 pb-7 text-black font-regular leading-relaxed text-sm sm:text-base"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
                   {faq.a}
-                </div>
+                </motion.div>
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

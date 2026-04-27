@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function FindCooksSection() {
   const [email, setEmail] = useState("");
@@ -28,7 +29,13 @@ export default function FindCooksSection() {
       />
 
       {/* Content — absolutely centered over the image */}
-      <div className="absolute inset-0 z-10 flex items-center justify-end w-full px-6 lg:px-16">
+      <motion.div
+        className="absolute inset-0 z-10 flex items-center justify-end w-full px-6 lg:px-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <div className="w-full lg:w-[55%] text-white text-center">
           {/* Eyebrow */}
           <p className="text-white text-xl sm:text-5xl text-center font-bold mb-3">
@@ -77,7 +84,7 @@ export default function FindCooksSection() {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
