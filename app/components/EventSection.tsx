@@ -28,13 +28,6 @@ const ACTIVITIES = [
   },
 ];
 
-const AVATAR_COLORS = [
-  "bg-amber-400",
-  "bg-rose-400",
-  "bg-teal-400",
-  "bg-blue-400",
-];
-
 export default function EventSection() {
   const [phone, setPhone] = useState("");
 
@@ -45,10 +38,10 @@ export default function EventSection() {
           {/* Left — event photo */}
           <style>{`
             .event-photo { height: 467px; }
-            @media (min-width: 1024px) { .event-photo { width: 700px; height: 700px; flex-shrink: 0; } }
+            @media (min-width: 1024px) { .event-photo { width: 700px; height: 720px; flex-shrink: 0; } }
           `}</style>
           <motion.div
-            className="event-photo relative overflow-hidden rounded-2xl lg:rounded-[40px]"
+            className="event-photo relative overflow-hidden rounded-2xl lg:rounded-[40px] order-2 lg:order-1"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -65,15 +58,14 @@ export default function EventSection() {
 
           {/* Right — content */}
           <motion.div
-            className="flex-1 w-full"
+            className="flex-1 w-full flex flex-col justify-center order-1 lg:order-2"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
           >
             <h2 className="text-2xl sm:text-5xl font-black text-gray-900 leading-none mb-4">
-              Taste. Sip. Play.
-              <br />
+              Taste. Sip. Play. <br className="hidden sm:block" />
               Connect.
             </h2>
             <p className="text-[#5C5C5C] text-sm sm:text-[18px] leading-relaxed mb-5">
@@ -85,7 +77,7 @@ export default function EventSection() {
             <p className="hidden sm:block font-bold text-gray-900 text-2xl mb-2">
               Activities...
             </p>
-            <div className="space-y-0 mb-8">
+            <div className="space-y-0 mb-5">
               {ACTIVITIES.map((a) => (
                 <div key={a.num} className="flex items-center gap-4 py-4">
                   <span className="text-sm font-bold text-black w-4 shrink-0">
@@ -107,35 +99,44 @@ export default function EventSection() {
             </div>
 
             {/* Phone + CTA */}
-            <div
-              className="flex w-full max-w-md bg-white rounded-full overflow-hidden mb-5"
-              style={{ boxShadow: "0px 4px 50px 0px #00000014" }}
-            >
+            <div className="flex flex-col sm:flex-row w-full max-w-125 gap-3 sm:gap-0 sm:bg-white sm:rounded-full sm:overflow-hidden mb-10" style={{ boxShadow: "0px 4px 50px 0px #00000014" }}>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter your phone number"
-                className="flex-1 px-6 py-4 text-sm text-gray-800 placeholder-gray-400 bg-transparent focus:outline-none"
+                className="flex-1 px-6 py-4 text-sm text-gray-800 placeholder-gray-400 bg-white rounded-full sm:bg-transparent sm:rounded-none focus:outline-none"
+                style={{ boxShadow: "0px 4px 50px 0px #00000014" }}
               />
-              <button className="bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold px-6 py-3 rounded-full m-1.5 transition-colors whitespace-nowrap cursor-pointer">
+              <button className="bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold px-6 py-4 rounded-full sm:py-3 sm:m-1.5 transition-colors whitespace-nowrap cursor-pointer">
                 Get your ticket
               </button>
             </div>
 
             {/* Social proof */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 justify-center">
               <div className="flex -space-x-2">
-                {AVATAR_COLORS.map((c, i) => (
+                {[
+                  "/joined1.png",
+                  "/joined2.png",
+                  "/joined3.png",
+                  "/joined4.png",
+                ].map((src, i) => (
                   <div
                     key={i}
-                    className={`w-9 h-9 rounded-full ${c} border-2 border-white flex items-center justify-center text-xs`}
+                    className="w-8 h-8 rounded-full border-2 border-white overflow-hidden"
                   >
-                    {["👩", "👨", "👩‍🦱", "👨‍🦳"][i]}
+                    <Image
+                      src={src}
+                      alt=""
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-cover object-top"
+                    />
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-gray-500 font-medium">
+              <p className="text-[16px] text-black font-medium">
                 Over 50+ people already joined
               </p>
             </div>
