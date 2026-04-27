@@ -103,7 +103,7 @@ export default function TestimonialsSection() {
   const offset = LEFT_PAD - current * pairW;
 
   return (
-    <section className="py-10 sm:py-24 bg-gray-50 overflow-hidden">
+    <section className="py-10 sm:py-20 bg-[#F7F7F7] overflow-hidden">
       {/* Heading */}
       <div className="text-center mb-16 px-4">
         <h2 className="text-2xl sm:text-6xl font-black text-black mb-4">
@@ -151,7 +151,7 @@ export default function TestimonialsSection() {
                 className="shrink-0 bg-white flex flex-col justify-between px-6 sm:px-8 py-6 sm:py-14 shadow-sm"
                 style={{ width: cardW, height: cardH, borderRadius: radius }}
               >
-                <p className="text-gray-800 text-[16px] leading-relaxed sm:leading-0 sm:text-2xl font-regular">
+                <p className="text-gray-800 text-[16px] leading-relaxed sm:leading-normal sm:text-2xl font-regular">
                   {pair.quote}
                 </p>
                 <div className="flex items-center justify-between">

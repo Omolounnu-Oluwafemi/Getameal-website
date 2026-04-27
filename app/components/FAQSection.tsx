@@ -37,7 +37,7 @@ const PlusIcon = () => (
     fill="none"
     className="shrink-0"
   >
-    <circle cx="16" cy="16" r="15" stroke="#D1D5DB" strokeWidth="1.5" />
+    <circle cx="16" cy="16" r="15" stroke="#000000" strokeWidth="1.5" />
     <path
       d="M10 16h12M16 10v12"
       stroke="#374151"
@@ -55,7 +55,7 @@ const MinusIcon = () => (
     fill="none"
     className="shrink-0"
   >
-    <circle cx="16" cy="16" r="15" stroke="#D1D5DB" strokeWidth="1.5" />
+    <circle cx="16" cy="16" r="15" stroke="#000000" strokeWidth="1.5" />
     <path
       d="M10 16h12"
       stroke="#374151"
@@ -69,7 +69,16 @@ export default function FAQSection() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-white">
+    <section className="pb-10 sm:pb-20 bg-[#F7F7F7]">
+      <div className="text-center mb-14 px-4">
+        <h2 className="text-2xl sm:text-[64px] font-black text-black mb-2">
+          Let’s Clear Things Up
+        </h2>
+        <p className="text-[#222222] text-sm sm:text-[20px] max-w-125 mx-auto leading-relaxed">
+          Transparency matters. Here’s how Getameal is built to work for both
+          customers and cooks.
+        </p>
+      </div>
       <div className="mx-auto px-4" style={{ maxWidth: "910px" }}>
         <div
           style={{
@@ -82,20 +91,22 @@ export default function FAQSection() {
           {FAQS.map((faq, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
+              className="bg-white rounded-[20px] overflow-hidden shadow-sm"
             >
-              <button
-                className="w-full flex items-center justify-between px-8 py-6 text-left"
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                <span className="font-bold text-gray-900 text-lg pr-6">
+              <div className="w-full flex items-center justify-between px-8 py-6 text-left">
+                <span className="font-medium sm:font-bold text-black text-sm sm:text-lg pr-6">
                   {faq.q}
                 </span>
-                {open === i ? <MinusIcon /> : <PlusIcon />}
-              </button>
+                <button
+                  className="cursor-pointer shrink-0"
+                  onClick={() => setOpen(open === i ? null : i)}
+                >
+                  {open === i ? <MinusIcon /> : <PlusIcon />}
+                </button>
+              </div>
 
               {open === i && (
-                <div className="px-8 pb-7 text-gray-500 leading-relaxed text-base">
+                <div className="px-8 pb-7 text-black font-regular leading-relaxed text-sm sm:text-base">
                   {faq.a}
                 </div>
               )}
