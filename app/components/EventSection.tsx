@@ -27,75 +27,77 @@ const ACTIVITIES = [
   },
 ];
 
-const AVATAR_COLORS = ["bg-amber-400", "bg-rose-400", "bg-teal-400", "bg-blue-400"];
+const AVATAR_COLORS = [
+  "bg-amber-400",
+  "bg-rose-400",
+  "bg-teal-400",
+  "bg-blue-400",
+];
 
 export default function EventSection() {
   const [phone, setPhone] = useState("");
 
   return (
-    <section className="bg-white py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
-
+    <section className="py-10 sm:py-4 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-10 items-stretch justify-between">
           {/* Left — event photo */}
-          <div
-            className="relative shrink-0 rounded-3xl overflow-hidden w-full lg:w-[420px]"
-            style={{ minHeight: "580px" }}
-          >
+          <style>{`
+            .event-photo { height: 467px; }
+            @media (min-width: 1024px) { .event-photo { width: 700px; height: 700px; flex-shrink: 0; } }
+          `}</style>
+          <div className="event-photo relative overflow-hidden rounded-2xl lg:rounded-[40px]">
             <Image
-              src="/tastebg.png"
+              src="/siplady.png"
               alt="Taste. Sip. Play. Connect. event"
               fill
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 420px"
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 600px"
             />
           </div>
 
           {/* Right — content */}
-          <div className="flex-1">
-            <h2 className="text-5xl sm:text-6xl font-black text-gray-900 leading-tight mb-4">
-              Taste. Sip. Play.<br />Connect.
+          <div className="flex-1 w-full">
+            <h2 className="text-2xl sm:text-5xl font-black text-gray-900 leading-none mb-4">
+              Taste. Sip. Play.
+              <br />
+              Connect.
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm">
+            <p className="text-[#5C5C5C] text-sm sm:text-[18px] leading-relaxed mb-5">
               Join us for an intimate evening where food meets fun, and
               experience Getameal before it goes live.
             </p>
 
             {/* Activities */}
-            <p className="font-bold text-gray-900 text-base mb-5">Activities...</p>
+            <p className="hidden sm:block font-bold text-gray-900 text-2xl mb-2">
+              Activities...
+            </p>
             <div className="space-y-0 mb-8">
-              {ACTIVITIES.map((a, i) => (
-                <div key={a.num}>
-                  <div className="flex items-center gap-4 py-4">
-                    {/* Number */}
-                    <span className="text-sm font-semibold text-gray-400 w-4 shrink-0">
-                      {a.num}
-                    </span>
-
-                    {/* Icon */}
-                    <div
-                      className={`w-12 h-12 rounded-xl ${a.bg} flex items-center justify-center text-2xl shrink-0`}
-                    >
-                      {a.emoji}
-                    </div>
-
-                    {/* Text */}
-                    <div>
-                      <p className="font-bold text-gray-900 text-sm">{a.title}</p>
-                      <p className="text-gray-400 text-xs mt-0.5">{a.desc}</p>
-                    </div>
+              {ACTIVITIES.map((a) => (
+                <div key={a.num} className="flex items-center gap-4 py-4">
+                  <span className="text-sm font-bold text-black w-4 shrink-0">
+                    {a.num}
+                  </span>
+                  <div
+                    className={`w-12 sm:w-12.5 h-12 sm:h-11.5 rounded-[10px] ${a.bg} flex items-center justify-center text-2xl shrink-0`}
+                  >
+                    {a.emoji}
                   </div>
-
-                  {/* Dashed divider between items */}
-                  {i < ACTIVITIES.length - 1 && (
-                    <div className="ml-8 border-t border-dashed border-gray-200" />
-                  )}
+                  <div>
+                    <p className="font-semibold text-black text-[16px]">
+                      {a.title}
+                    </p>
+                    <p className="text-[#5C5C5C] text-sm mt-0.5">{a.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
 
             {/* Phone + CTA */}
-            <div className="flex w-full max-w-md bg-gray-100 rounded-full overflow-hidden mb-5">
+            <div
+              className="flex w-full max-w-md bg-white rounded-full overflow-hidden mb-5"
+              style={{ boxShadow: "0px 4px 50px 0px #00000014" }}
+            >
               <input
                 type="tel"
                 value={phone}
@@ -103,7 +105,7 @@ export default function EventSection() {
                 placeholder="Enter your phone number"
                 className="flex-1 px-6 py-4 text-sm text-gray-800 placeholder-gray-400 bg-transparent focus:outline-none"
               />
-              <button className="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-6 py-3 rounded-full m-1.5 transition-colors whitespace-nowrap">
+              <button className="bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold px-6 py-3 rounded-full m-1.5 transition-colors whitespace-nowrap cursor-pointer">
                 Get your ticket
               </button>
             </div>
@@ -125,7 +127,6 @@ export default function EventSection() {
               </p>
             </div>
           </div>
-
         </div>
       </div>
     </section>
