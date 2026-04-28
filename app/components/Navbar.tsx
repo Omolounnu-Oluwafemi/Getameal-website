@@ -7,7 +7,11 @@ import { useState, useEffect } from "react";
 const navLinks = [
   { label: "Home", href: "#", sectionId: "" },
   { label: "How it works", href: "#how-it-works", sectionId: "how-it-works" },
-  { label: "For Customers", href: "#for-customers", sectionId: "for-customers" },
+  {
+    label: "For Customers",
+    href: "#for-customers",
+    sectionId: "for-customers",
+  },
   { label: "For Cooks", href: "#for-cooks", sectionId: "for-cooks" },
   { label: "Contact us", href: "#contact", sectionId: "contact" },
 ];
@@ -40,7 +44,10 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-3 px-4">
       {/* Main bar */}
-      <div className="w-full max-w-4xl bg-white rounded-[80px] border border-gray-200 shadow-sm px-5 h-14 flex items-center justify-between">
+      <div
+        className="w-full max-w-4xl bg-white/60 backdrop-blur-md rounded-[80px] border border-white/40 pl-4 pr-3 h-15 flex items-center justify-between"
+        style={{ boxShadow: "0px 4px 50px 0px #0000000D" }}
+      >
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
@@ -93,7 +100,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden w-full max-w-4xl mt-2 bg-white rounded-3xl border border-gray-200 shadow-lg overflow-hidden">
+        <div className="md:hidden w-full max-w-4xl mt-2 bg-white/70 backdrop-blur-md rounded-3xl border border-white/40 shadow-lg overflow-hidden">
           {navLinks.map(({ label, href, sectionId }) => {
             const active = activeSection === sectionId;
             return (
@@ -112,7 +119,7 @@ export default function Navbar() {
             );
           })}
           <div className="px-6 py-4">
-            <button className="w-full bg-[#209D01] text-white text-sm font-semibold py-3 rounded-full hover:bg-green-700 transition-colors">
+            <button className="w-full bg-[#209D01] text-white text-sm font-semibold py-3 rounded-full hover:bg-green-700 transition-colors cursor-pointer">
               Get a ticket
             </button>
           </div>
