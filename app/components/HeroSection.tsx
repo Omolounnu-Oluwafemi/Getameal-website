@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import MunaCard from "./MunaCard";
 import { motion } from "framer-motion";
 
 const LOCATION_TAGS = [
@@ -49,15 +50,176 @@ const LOCATION_TAGS = [
   "Badagry",
 ];
 
+const PINS = [
+  {
+    src: "/cook2.png",
+    left: "11%",
+    top: "20%",
+    cook: {
+      name: "Amaka's Kitchen",
+      location: "Lekki Phase 1",
+      rating: "4.8",
+      reviews: 124,
+      avatar: "/cook2.png",
+      foods: [
+        { image: "/smokyJollof.png", label: "Cooking On-demand", name: "Smoky party jollof rice", price: "₦22,000", unit: "4 Litre" },
+        { image: "/FriedChicken.png", label: "Cooking Tomorrow", name: "Crispy fried chicken", price: "₦18,000", unit: "8 Pieces" },
+      ],
+    },
+  },
+  {
+    src: "/cook4.png",
+    left: "20%",
+    top: "57%",
+    cook: {
+      name: "Ngozi's Kitchen",
+      location: "Ikeja",
+      rating: "4.6",
+      reviews: 89,
+      avatar: "/cook4.png",
+      foods: [
+        { image: "/meatyRice.png", label: "Pre-order Now", name: "Meaty coconut rice special", price: "₦24,000", unit: "5 Litre" },
+        { image: "/grilledChicken.png", label: "Cooking Tomorrow", name: "Smoky grilled chicken", price: "₦28,000", unit: "12 Pieces" },
+      ],
+    },
+  },
+  {
+    src: "/cook3.png",
+    left: "80%",
+    top: "68%",
+    cook: {
+      name: "Titi's Home Kitchen",
+      location: "Surulere",
+      rating: "4.9",
+      reviews: 201,
+      avatar: "/cook3.png",
+      foods: [
+        { image: "/grilledChicken.png", label: "Cooking On-demand", name: "Charcoal grilled chicken", price: "₦32,000", unit: "16 Pieces" },
+        { image: "/smokyJollof.png", label: "Pre-order Now", name: "Special party jollof rice", price: "₦20,000", unit: "4 Litre" },
+      ],
+    },
+  },
+  {
+    src: "/cook5.png",
+    left: "49%",
+    top: "89%", // default — closest to base
+    cook: {
+      name: "Munachi's Kitchen",
+      location: "Lekki, Lagos",
+      rating: "4.7",
+      reviews: 98,
+      avatar: "/cook5.png",
+      foods: [
+        { image: "/smokyJollof.png", label: "Cooking On-demand", name: "Well cooked smoky jollof ri..", price: "₦25,000", unit: "4 Litre" },
+        { image: "/FriedChicken.png", label: "Cooking Tomorrow", name: "16 Pieces of spicy chicken", price: "₦35,000", unit: "16 Pieces" },
+      ],
+    },
+  },
+  {
+    src: "/cook6.png",
+    left: "75%",
+    top: "50%",
+    cook: {
+      name: "Bisi's Kitchen",
+      location: "Victoria Island",
+      rating: "4.5",
+      reviews: 67,
+      avatar: "/cook6.png",
+      foods: [
+        { image: "/FriedChicken.png", label: "Cooking On-demand", name: "Southern fried chicken", price: "₦30,000", unit: "10 Pieces" },
+        { image: "/meatyRice.png", label: "Pre-order Now", name: "Beef and rice combo bowl", price: "₦26,000", unit: "5 Litre" },
+      ],
+    },
+  },
+  {
+    src: "/cook1.png",
+    left: "91%",
+    top: "44%",
+    cook: {
+      name: "Ada's Kitchen",
+      location: "Yaba",
+      rating: "4.7",
+      reviews: 143,
+      avatar: "/cook1.png",
+      foods: [
+        { image: "/meatyRice.png", label: "Cooking On-demand", name: "Meaty jollof rice special", price: "₦23,000", unit: "4 Litre" },
+        { image: "/grilledChicken.png", label: "Cooking Tomorrow", name: "Smoky grilled chicken", price: "₦29,000", unit: "8 Pieces" },
+      ],
+    },
+  },
+] as const;
+
+type Placement = "top" | "bottom" | "left" | "right";
+
+const CARD_W = 310;
+const CARD_H = 370;
+
+function cardStyle(p: Placement, adjust: { x: number; y: number }): React.CSSProperties {
+  const adj = `translate(${adjust.x}px, ${adjust.y}px)`;
+  switch (p) {
+    case "top":    return { position: "absolute", bottom: "100%", left: "50%", transform: `translateX(-50%) ${adj}`, marginBottom: 10, zIndex: 10 };
+    case "bottom": return { position: "absolute", top: "100%",   left: "50%", transform: `translateX(-50%) ${adj}`, marginTop: 10,    zIndex: 10 };
+    case "left":   return { position: "absolute", right: "100%", top: "50%",  transform: `translateY(-50%) ${adj}`, marginRight: 10,  zIndex: 10 };
+    case "right":  return { position: "absolute", left: "100%",  top: "50%",  transform: `translateY(-50%) ${adj}`, marginLeft: 10,   zIndex: 10 };
+  }
+}
+
 export default function HeroSection() {
   const [email, setEmail] = useState("");
+  const [activePin, setActivePin] = useState(3);
+  const [placement, setPlacement] = useState<Placement>("top");
+  const [cardAdjust, setCardAdjust] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (activePin < 0 || !cardRef.current) return;
+    const r = cardRef.current.getBoundingClientRect();
+    const GAP = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let x = 0, y = 0;
+    if (r.right  > vw - GAP) x = vw - GAP - r.right;
+    if (r.left   < GAP)      x = GAP - r.left;
+    if (r.bottom > vh - GAP) y = vh - GAP - r.bottom;
+    if (r.top    < GAP)      y = GAP - r.top;
+    if (x !== 0 || y !== 0) setCardAdjust(prev => ({ x: prev.x + x, y: prev.y + y }));
+  }, [activePin, placement]);
+
+  function handlePinClick(e: React.MouseEvent<HTMLDivElement>, i: number) {
+    if (i === activePin) { setActivePin(-1); return; }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const spaceTop    = rect.top;
+    const spaceBottom = vh - rect.bottom;
+    const spaceRight  = vw - rect.right;
+    const spaceLeft   = rect.left;
+
+    let p: Placement;
+    if      (spaceTop    >= CARD_H + 12) p = "top";
+    else if (spaceBottom >= CARD_H + 12) p = "bottom";
+    else if (spaceRight  >= CARD_W + 12) p = "right";
+    else if (spaceLeft   >= CARD_W + 12) p = "left";
+    else {
+      const best = ([["top", spaceTop], ["bottom", spaceBottom], ["right", spaceRight], ["left", spaceLeft]] as [Placement, number][])
+        .reduce((a, b) => b[1] > a[1] ? b : a);
+      p = best[0];
+    }
+
+    setCardAdjust({ x: 0, y: 0 });
+    setPlacement(p);
+    setActivePin(i);
+  }
 
   return (
-    <section className="pt-20 flex flex-col bg-[#F7F7F7] min-h-screen md:min-h-[140vh]">
+    <section className="pt-20 flex flex-col bg-[#F7F7F7] md:min-h-[140vh]">
       <Navbar />
-      <div className="relative flex-1 min-h-[calc(100vh-56px)] md:min-h-[calc(140vh-56px)]">
-        {/* Map at natural aspect ratio — no cropping */}
-        <div className="absolute bottom-0 left-0 right-0">
+      <div className="relative flex-1">
+        {/* Plain bg spacer — map starts below this */}
+        <div className="h-[30vh] md:h-[35vh]" />
+
+        {/* Map in normal flow so it never gets clipped */}
+        <div className="relative">
           <Image
             src="/Map.png"
             alt=""
@@ -67,17 +229,82 @@ export default function HeroSection() {
             sizes="100vw"
             priority
           />
-          {/* Blend top edge of map into background */}
+
+          {/* Cook pins */}
+          {PINS.map((pin, i) => (
+            <div
+              key={i}
+              className="absolute flex flex-col items-center cursor-pointer"
+              style={{
+                left: pin.left,
+                top: pin.top,
+                transform: "translate(-50%, -100%)",
+                zIndex: activePin === i ? 9999 : 5,
+              }}
+              onClick={(e) => handlePinClick(e, i)}
+            >
+              {/* Card — absolutely positioned on the best available side */}
+              {activePin === i && (
+                <div className="hidden md:block">
+                  <motion.div
+                    key={i}
+                    ref={cardRef}
+                    style={cardStyle(placement, cardAdjust)}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <MunaCard cook={pin.cook} />
+                  </motion.div>
+                </div>
+              )}
+
+              {/* Circle avatar */}
+              <div
+                className="rounded-full overflow-hidden border-[3px] border-white"
+                style={{
+                  width: "clamp(32px, 4.5vw, 72px)",
+                  height: "clamp(32px, 4.5vw, 72px)",
+                  boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
+                }}
+              >
+                <Image
+                  src={pin.src}
+                  alt=""
+                  width={90}
+                  height={90}
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+
+              {/* Arrow tip */}
+              <div
+                style={{
+                  width: 0,
+                  height: 0,
+                  borderLeft: "clamp(6px, 0.8vw, 13px) solid transparent",
+                  borderRight: "clamp(6px, 0.8vw, 13px) solid transparent",
+                  borderTop: "clamp(9px, 1.3vw, 20px) solid white",
+                  marginTop: "-2px",
+                  filter: "drop-shadow(0 3px 2px rgba(0,0,0,0.15))",
+                }}
+              />
+            </div>
+          ))}
+
+          {/* Fade top edge into background */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute top-0 left-0 right-0 pointer-events-none"
             style={{
-              background: "linear-gradient(to bottom, #F7F7F7 0%, rgba(247,247,247,0) 30%)",
+              height: "35%",
+              background:
+                "linear-gradient(to bottom, #F7F7F7 30%, rgba(247,247,247,0) 100%)",
             }}
           />
         </div>
 
         <div
-          className="absolute top-0 left-0 right-0 flex flex-col items-center px-4 md:pt-20 pt-7"
+          className="absolute top-0 left-0 right-0 flex flex-col items-center px-4 pt-7 md:pt-30"
           style={{ zIndex: 2 }}
         >
           <motion.h1
@@ -165,21 +392,6 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        <motion.div
-          className="hidden md:block absolute bottom-30 left-1/2 -translate-x-1/2"
-          style={{ zIndex: 3 }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.7 }}
-        >
-          <Image
-            src="/Munacard.svg"
-            alt="Munachi's Kitchen"
-            width={400}
-            height={320}
-            className="rounded-3xl"
-          />
-        </motion.div>
       </div>
 
       <style>{`
