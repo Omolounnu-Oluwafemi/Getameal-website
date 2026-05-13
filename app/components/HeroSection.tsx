@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useLayoutEffect, useRef } from "react";
+import { useState, useLayoutEffect, useRef, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "./Navbar";
 import MunaCard from "./MunaCard";
@@ -166,10 +166,46 @@ function cardStyle(p: Placement, adjust: { x: number; y: number }): React.CSSPro
 
 export default function HeroSection() {
   const [email, setEmail] = useState("");
-  const [activePin, setActivePin] = useState(3);
+  const [activePin, setActivePin] = useState(-1);
   const [placement, setPlacement] = useState<Placement>("top");
   const [cardAdjust, setCardAdjust] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
+  const munachiPinRef = useRef<HTMLDivElement>(null);
+  const autoOpenedRef = useRef(false);
+
+  useEffect(() => {
+    const el = munachiPinRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || autoOpenedRef.current) return;
+        autoOpenedRef.current = true;
+        const rect = el.getBoundingClientRect();
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const spaceTop    = rect.top;
+        const spaceBottom = vh - rect.bottom;
+        const spaceRight  = vw - rect.right;
+        const spaceLeft   = rect.left;
+        let p: Placement;
+        if      (spaceTop    >= CARD_H + 12) p = "top";
+        else if (spaceBottom >= CARD_H + 12) p = "bottom";
+        else if (spaceRight  >= CARD_W + 12) p = "right";
+        else if (spaceLeft   >= CARD_W + 12) p = "left";
+        else {
+          const best = ([["top", spaceTop], ["bottom", spaceBottom], ["right", spaceRight], ["left", spaceLeft]] as [Placement, number][])
+            .reduce((a, b) => b[1] > a[1] ? b : a);
+          p = best[0];
+        }
+        setCardAdjust({ x: 0, y: 0 });
+        setPlacement(p);
+        setActivePin(3);
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   useLayoutEffect(() => {
     if (activePin < 0 || !cardRef.current) return;
@@ -234,6 +270,7 @@ export default function HeroSection() {
           {PINS.map((pin, i) => (
             <div
               key={i}
+              ref={i === 3 ? munachiPinRef : undefined}
               className="absolute flex flex-col items-center cursor-pointer"
               style={{
                 left: pin.left,
