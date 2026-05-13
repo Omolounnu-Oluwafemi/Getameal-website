@@ -50,7 +50,7 @@ export default function TrustSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <Image src="/greenLogo.svg" alt="" width={18} height={18} className="shrink-0" />
+              <Image src="/greenLogo.svg" alt="" width={12} height={18} className="shrink-0" />
               <span className="text-sm md:text-[16px] font-500 text-gray-700">For Customers</span>
             </motion.div>
 

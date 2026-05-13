@@ -354,7 +354,7 @@ export default function MunaCard({ cook }: { cook: CookData }) {
           Pick-up
         </span>
         <span style={{ fontSize: 10, color: "#ccc" }}>•</span>
-        <Image src="/dot.svg" alt="dot" width={6} height={15} />
+        <Image src="/dot.svg" alt="dot" width={6} height={6} />
         <span style={{ fontSize: 10, color: "#222222", fontWeight: 600 }}>
           Available
         </span>
@@ -363,7 +363,7 @@ export default function MunaCard({ cook }: { cook: CookData }) {
         <span style={{ fontSize: 10, color: "#222222", fontWeight: 500 }}>
           Delivery
         </span>
-        <Image src="/dot.svg" alt="dot" width={6} height={15} />
+        <Image src="/dot.svg" alt="dot" width={6} height={6} />
         <span style={{ fontSize: 10, color: "#222222", fontWeight: 600 }}>
           Not Available
         </span>
