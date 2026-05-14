@@ -82,7 +82,8 @@ export default function FAQSection() {
             <motion.div
               key={i}
               variants={itemVariants}
-              className="bg-white rounded-[20px] overflow-hidden shadow-sm"
+              className="bg-white rounded-[20px] overflow-hidden"
+              style={{ boxShadow: "0px 4px 20px 0px #0000000D" }}
             >
               <div className="w-full flex items-center justify-between px-8 py-6 text-left">
                 <span className="font-medium sm:font-bold text-black text-sm sm:text-lg pr-6">

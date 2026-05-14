@@ -562,7 +562,7 @@ export default function HeroSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email here"
-              className="flex-1 px-5 py-4 text-sm text-gray-700 focus:outline-none bg-white rounded-full shadow-lg border border-gray-100 sm:bg-transparent sm:rounded-none sm:shadow-none sm:border-0"
+              className="flex-1 px-5 py-4 text-base sm:text-sm text-gray-700 focus:outline-none bg-white rounded-full shadow-lg border border-gray-100 sm:bg-transparent sm:rounded-none sm:shadow-none sm:border-0"
             />
             <button
               type="button"

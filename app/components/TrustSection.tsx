@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import NumberedStepsList from "./NumberedStepsList";
 
 const STEPS = [
   {
@@ -10,7 +11,6 @@ const STEPS = [
     desc: "Find verified cook that will cook what you want to eat for the week. It's made fresh for you.",
     mobileDesc: "Find verified cook that will cook what you want to eat for the week.",
     thumb: { bg: "bg-amber-50", img: "/Explore.png" },
-    align: "items-start",
   },
   {
     number: "2",
@@ -18,7 +18,6 @@ const STEPS = [
     desc: "Order 5 Litres of egusi, 8 Litres of Jollof rice with protein or any meal of your choice and enjoy for the week.",
     mobileDesc: "Order 5 Litres of egusi or any meal of your choice and enjoy.",
     thumb: { bg: "bg-orange-50", img: "/PreOrder.png" },
-    align: "items-center",
   },
   {
     number: "3",
@@ -26,14 +25,9 @@ const STEPS = [
     desc: "Once the cook is done cooking your meal, you either get it delivered to you or you pick it up yourself no stories.",
     mobileDesc: "You either get it delivered to you or you pick it up yourself no stories.",
     thumb: { bg: "bg-red-50", img: "/Pickup.png" },
-    align: "items-end",
   },
 ];
 
-const stepVariants = {
-  hidden: { opacity: 0, x: -30 },
-  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
-};
 
 export default function TrustSection() {
   return (
@@ -76,42 +70,16 @@ export default function TrustSection() {
               save more time and money.
             </motion.p>
 
-            <motion.div
-              className="flex flex-col"
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.12 } } }}
-            >
-              {STEPS.map(({ number, title, desc, mobileDesc, thumb, align }, idx) => (
-                <div key={number}>
-                  <motion.div className={`flex ${align} gap-6`} variants={stepVariants}>
-                    <span className="text-sm font-bold text-black w-6 text-center">{number}</span>
-                    <div className="flex gap-3 flex-1 bg-white rounded-[20px] p-4 md:p-6">
-                      <div className={`w-17.25 h-15.75 rounded-xl ${thumb.bg} shrink-0 overflow-hidden relative`}>
-                        <Image src={thumb.img} alt="" fill className="object-cover object-top" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm md:text-[16px] font-semibold text-black mb-0.5">{title}</p>
-                        <p className="text-sm text-gray-400 leading-relaxed">
-                          <span className="md:hidden">{mobileDesc}</span>
-                          <span className="hidden md:inline">{desc}</span>
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {idx < STEPS.length - 1 && (
-                    <div className="ml-2.75">
-                      <div className="w-px" style={{ background: "repeating-linear-gradient(to bottom, #d1d5db 0px, #d1d5db 5px, transparent 5px, transparent 11px)" }}>
-                        <div className="h-5 md:hidden" />
-                        <div className="hidden md:block md:h-12.5" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </motion.div>
+            <NumberedStepsList
+              steps={STEPS.map((s) => ({
+                number: s.number,
+                title: s.title,
+                desc: s.desc,
+                mobileDesc: s.mobileDesc,
+                img: s.thumb.img,
+                bg: s.thumb.bg,
+              }))}
+            />
           </div>
 
           {/* Right column — GIF */}

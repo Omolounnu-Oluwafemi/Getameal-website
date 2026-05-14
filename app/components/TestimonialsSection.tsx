@@ -59,7 +59,6 @@ const LEFT_PAD = 16;
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef<number | null>(null);
 
   const cardW = isMobile ? 300 : 580;
@@ -84,19 +83,28 @@ export default function TestimonialsSection() {
     setCurrent((prev) => Math.min(N - 1, prev + 1));
   }
 
-  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
-    dragStartX.current = e.clientX;
-    setIsDragging(true);
-    e.currentTarget.setPointerCapture(e.pointerId);
+  function onTouchStart(e: React.TouchEvent<HTMLDivElement>) {
+    dragStartX.current = e.touches[0].clientX;
   }
 
-  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+  function onTouchEnd(e: React.TouchEvent<HTMLDivElement>) {
+    if (dragStartX.current === null) return;
+    const delta = dragStartX.current - e.changedTouches[0].clientX;
+    if (delta > 50) handleNext();
+    else if (delta < -50) handlePrev();
+    dragStartX.current = null;
+  }
+
+  function onMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+  }
+
+  function onMouseUp(e: React.MouseEvent<HTMLDivElement>) {
     if (dragStartX.current === null) return;
     const delta = dragStartX.current - e.clientX;
     if (delta > 50) handleNext();
     else if (delta < -50) handlePrev();
     dragStartX.current = null;
-    setIsDragging(false);
   }
 
   return (
@@ -121,17 +129,12 @@ export default function TestimonialsSection() {
       {/* Card strip */}
       <div
         className="overflow-hidden"
-        style={{
-          cursor: isDragging ? "grabbing" : "grab",
-          touchAction: "pan-y",
-          userSelect: "none",
-        }}
-        onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
-        onPointerLeave={() => {
-          dragStartX.current = null;
-          setIsDragging(false);
-        }}
+        style={{ cursor: "grab", touchAction: "pan-y", userSelect: "none" }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseLeave={() => { dragStartX.current = null; }}
       >
         <div
           className="flex"

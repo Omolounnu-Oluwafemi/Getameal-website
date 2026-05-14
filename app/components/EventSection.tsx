@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import NumberedStepsList from "./NumberedStepsList";
 
 const ACTIVITIES = [
   {
@@ -74,47 +75,28 @@ export default function EventSection() {
             </p>
 
             {/* Activities */}
-            <p className="hidden sm:block font-bold text-gray-900 text-2xl mb-2">
+            <p className="hidden sm:block font-bold text-gray-900 text-2xl mb-4">
               Activities...
             </p>
-            <div className="space-y-0 mb-5">
-              {ACTIVITIES.map((a) => (
-                <div key={a.num} className="flex items-center gap-4 py-4">
-                  <span className="text-sm font-bold text-black w-4 shrink-0">
-                    {a.num}
-                  </span>
-                  <div
-                    className={`w-12 sm:w-12.5 h-12 sm:h-11.5 rounded-[10px] ${a.bg} shrink-0 relative overflow-hidden`}
-                  >
-                    <Image
-                      src={a.img}
-                      alt={a.title}
-                      fill
-                      className="object-cover object-top"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-black text-[16px]">
-                      {a.title}
-                    </p>
-                    <p className="text-[#5C5C5C] text-sm mt-0.5">{a.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <NumberedStepsList
+              steps={ACTIVITIES.map((a) => ({
+                number: a.num,
+                title: a.title,
+                desc: a.desc,
+                img: a.img,
+                bg: a.bg,
+              }))}
+              className="mb-5"
+            />
 
             {/* Phone + CTA */}
-            <div
-              className="flex flex-col sm:flex-row w-full max-w-125 gap-3 sm:gap-0 sm:bg-white sm:rounded-full sm:overflow-hidden mb-10"
-              style={{ boxShadow: "0px 4px 50px 0px #00000014" }}
-            >
+            <div className="flex flex-col sm:flex-row w-full max-w-125 gap-3 sm:gap-0 sm:bg-white sm:rounded-full sm:overflow-hidden mb-10 sm:shadow-[0px_4px_50px_0px_#00000014]">
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Enter your phone number"
-                className="flex-1 px-6 py-4 text-sm text-gray-800 placeholder-gray-400 bg-white rounded-full sm:bg-transparent sm:rounded-none focus:outline-none"
-                style={{ boxShadow: "0px 4px 50px 0px #00000014" }}
+                className="flex-1 px-6 py-4 text-base sm:text-sm text-gray-800 placeholder-gray-400 bg-[#F7F7F7] border border-[#EDEDED] rounded-full sm:bg-transparent sm:border-0 sm:rounded-none focus:outline-none"
               />
               <button className="bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold px-6 py-4 rounded-full sm:py-3 sm:m-1.5 transition-colors whitespace-nowrap cursor-pointer">
                 Get your ticket
