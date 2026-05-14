@@ -55,6 +55,8 @@ const PINS = [
     src: "/cook2.png",
     left: "11%",
     top: "20%",
+    mobileLeft: "11%",
+    mobileTop: "60%",
     cook: {
       name: "Amaka's Kitchen",
       location: "Lekki Phase 1",
@@ -62,8 +64,20 @@ const PINS = [
       reviews: 124,
       avatar: "/cook2.png",
       foods: [
-        { image: "/smokyJollof.png", label: "Cooking On-demand", name: "Smoky party jollof rice", price: "₦22,000", unit: "4 Litre" },
-        { image: "/FriedChicken.png", label: "Cooking Tomorrow", name: "Crispy fried chicken", price: "₦18,000", unit: "8 Pieces" },
+        {
+          image: "/smokyJollof.png",
+          label: "Cooking On-demand",
+          name: "Smoky party jollof rice",
+          price: "₦22,000",
+          unit: "4 Litre",
+        },
+        {
+          image: "/FriedChicken.png",
+          label: "Cooking Tomorrow",
+          name: "Crispy fried chicken",
+          price: "₦18,000",
+          unit: "8 Pieces",
+        },
       ],
     },
   },
@@ -71,6 +85,8 @@ const PINS = [
     src: "/cook4.png",
     left: "20%",
     top: "57%",
+    mobileLeft: "20%",
+    mobileTop: "80%",
     cook: {
       name: "Ngozi's Kitchen",
       location: "Ikeja",
@@ -78,8 +94,20 @@ const PINS = [
       reviews: 89,
       avatar: "/cook4.png",
       foods: [
-        { image: "/meatyRice.png", label: "Pre-order Now", name: "Meaty coconut rice special", price: "₦24,000", unit: "5 Litre" },
-        { image: "/grilledChicken.png", label: "Cooking Tomorrow", name: "Smoky grilled chicken", price: "₦28,000", unit: "12 Pieces" },
+        {
+          image: "/meatyRice.png",
+          label: "Pre-order Now",
+          name: "Meaty coconut rice special",
+          price: "₦24,000",
+          unit: "5 Litre",
+        },
+        {
+          image: "/grilledChicken.png",
+          label: "Cooking Tomorrow",
+          name: "Smoky grilled chicken",
+          price: "₦28,000",
+          unit: "12 Pieces",
+        },
       ],
     },
   },
@@ -87,6 +115,8 @@ const PINS = [
     src: "/cook3.png",
     left: "80%",
     top: "68%",
+    mobileLeft: "80%",
+    mobileTop: "90%",
     cook: {
       name: "Titi's Home Kitchen",
       location: "Surulere",
@@ -94,15 +124,29 @@ const PINS = [
       reviews: 201,
       avatar: "/cook3.png",
       foods: [
-        { image: "/grilledChicken.png", label: "Cooking On-demand", name: "Charcoal grilled chicken", price: "₦32,000", unit: "16 Pieces" },
-        { image: "/smokyJollof.png", label: "Pre-order Now", name: "Special party jollof rice", price: "₦20,000", unit: "4 Litre" },
+        {
+          image: "/grilledChicken.png",
+          label: "Cooking On-demand",
+          name: "Charcoal grilled chicken",
+          price: "₦32,000",
+          unit: "16 Pieces",
+        },
+        {
+          image: "/smokyJollof.png",
+          label: "Pre-order Now",
+          name: "Special party jollof rice",
+          price: "₦20,000",
+          unit: "4 Litre",
+        },
       ],
     },
   },
   {
     src: "/cook5.png",
     left: "49%",
-    top: "89%", // default — closest to base
+    top: "89%",
+    mobileLeft: "49%",
+    mobileTop: "90%",
     cook: {
       name: "Munachi's Kitchen",
       location: "Lekki, Lagos",
@@ -110,8 +154,20 @@ const PINS = [
       reviews: 98,
       avatar: "/cook5.png",
       foods: [
-        { image: "/smokyJollof.png", label: "Cooking On-demand", name: "Well cooked smoky jollof ri..", price: "₦25,000", unit: "4 Litre" },
-        { image: "/FriedChicken.png", label: "Cooking Tomorrow", name: "16 Pieces of spicy chicken", price: "₦35,000", unit: "16 Pieces" },
+        {
+          image: "/smokyJollof.png",
+          label: "Cooking On-demand",
+          name: "Well cooked smoky jollof ri..",
+          price: "₦25,000",
+          unit: "4 Litre",
+        },
+        {
+          image: "/FriedChicken.png",
+          label: "Cooking Tomorrow",
+          name: "16 Pieces of spicy chicken",
+          price: "₦35,000",
+          unit: "16 Pieces",
+        },
       ],
     },
   },
@@ -119,6 +175,8 @@ const PINS = [
     src: "/cook6.png",
     left: "75%",
     top: "50%",
+    mobileLeft: "65%",
+    mobileTop: "60%",
     cook: {
       name: "Bisi's Kitchen",
       location: "Victoria Island",
@@ -126,8 +184,20 @@ const PINS = [
       reviews: 67,
       avatar: "/cook6.png",
       foods: [
-        { image: "/FriedChicken.png", label: "Cooking On-demand", name: "Southern fried chicken", price: "₦30,000", unit: "10 Pieces" },
-        { image: "/meatyRice.png", label: "Pre-order Now", name: "Beef and rice combo bowl", price: "₦26,000", unit: "5 Litre" },
+        {
+          image: "/FriedChicken.png",
+          label: "Cooking On-demand",
+          name: "Southern fried chicken",
+          price: "₦30,000",
+          unit: "10 Pieces",
+        },
+        {
+          image: "/meatyRice.png",
+          label: "Pre-order Now",
+          name: "Beef and rice combo bowl",
+          price: "₦26,000",
+          unit: "5 Litre",
+        },
       ],
     },
   },
@@ -135,6 +205,8 @@ const PINS = [
     src: "/cook1.png",
     left: "91%",
     top: "44%",
+    mobileLeft: "90%",
+    mobileTop: "70%",
     cook: {
       name: "Ada's Kitchen",
       location: "Yaba",
@@ -142,8 +214,20 @@ const PINS = [
       reviews: 143,
       avatar: "/cook1.png",
       foods: [
-        { image: "/meatyRice.png", label: "Cooking On-demand", name: "Meaty jollof rice special", price: "₦23,000", unit: "4 Litre" },
-        { image: "/grilledChicken.png", label: "Cooking Tomorrow", name: "Smoky grilled chicken", price: "₦29,000", unit: "8 Pieces" },
+        {
+          image: "/meatyRice.png",
+          label: "Cooking On-demand",
+          name: "Meaty jollof rice special",
+          price: "₦23,000",
+          unit: "4 Litre",
+        },
+        {
+          image: "/grilledChicken.png",
+          label: "Cooking Tomorrow",
+          name: "Smoky grilled chicken",
+          price: "₦29,000",
+          unit: "8 Pieces",
+        },
       ],
     },
   },
@@ -154,19 +238,62 @@ type Placement = "top" | "bottom" | "left" | "right";
 const CARD_W = 310;
 const CARD_H = 370;
 
-function cardStyle(p: Placement, adjust: { x: number; y: number }): React.CSSProperties {
+function cardStyle(
+  p: Placement,
+  adjust: { x: number; y: number },
+): React.CSSProperties {
   const adj = `translate(${adjust.x}px, ${adjust.y}px)`;
   switch (p) {
-    case "top":    return { position: "absolute", bottom: "100%", left: "50%", transform: `translateX(-50%) ${adj}`, marginBottom: 10, zIndex: 10 };
-    case "bottom": return { position: "absolute", top: "100%",   left: "50%", transform: `translateX(-50%) ${adj}`, marginTop: 10,    zIndex: 10 };
-    case "left":   return { position: "absolute", right: "100%", top: "50%",  transform: `translateY(-50%) ${adj}`, marginRight: 10,  zIndex: 10 };
-    case "right":  return { position: "absolute", left: "100%",  top: "50%",  transform: `translateY(-50%) ${adj}`, marginLeft: 10,   zIndex: 10 };
+    case "top":
+      return {
+        position: "absolute",
+        bottom: "100%",
+        left: "50%",
+        transform: `translateX(-50%) ${adj}`,
+        marginBottom: 10,
+        zIndex: 10,
+      };
+    case "bottom":
+      return {
+        position: "absolute",
+        top: "100%",
+        left: "50%",
+        transform: `translateX(-50%) ${adj}`,
+        marginTop: 10,
+        zIndex: 10,
+      };
+    case "left":
+      return {
+        position: "absolute",
+        right: "100%",
+        top: "50%",
+        transform: `translateY(-50%) ${adj}`,
+        marginRight: 10,
+        zIndex: 10,
+      };
+    case "right":
+      return {
+        position: "absolute",
+        left: "100%",
+        top: "50%",
+        transform: `translateY(-50%) ${adj}`,
+        marginLeft: 10,
+        zIndex: 10,
+      };
   }
 }
 
 export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [activePin, setActivePin] = useState(-1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
   const [placement, setPlacement] = useState<Placement>("top");
   const [cardAdjust, setCardAdjust] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
@@ -183,25 +310,31 @@ export default function HeroSection() {
         const rect = el.getBoundingClientRect();
         const vw = window.innerWidth;
         const vh = window.innerHeight;
-        const spaceTop    = rect.top;
+        const spaceTop = rect.top;
         const spaceBottom = vh - rect.bottom;
-        const spaceRight  = vw - rect.right;
-        const spaceLeft   = rect.left;
+        const spaceRight = vw - rect.right;
+        const spaceLeft = rect.left;
         let p: Placement;
-        if      (spaceTop    >= CARD_H + 12) p = "top";
+        if (spaceTop >= CARD_H + 12) p = "top";
         else if (spaceBottom >= CARD_H + 12) p = "bottom";
-        else if (spaceRight  >= CARD_W + 12) p = "right";
-        else if (spaceLeft   >= CARD_W + 12) p = "left";
+        else if (spaceRight >= CARD_W + 12) p = "right";
+        else if (spaceLeft >= CARD_W + 12) p = "left";
         else {
-          const best = ([["top", spaceTop], ["bottom", spaceBottom], ["right", spaceRight], ["left", spaceLeft]] as [Placement, number][])
-            .reduce((a, b) => b[1] > a[1] ? b : a);
+          const best = (
+            [
+              ["top", spaceTop],
+              ["bottom", spaceBottom],
+              ["right", spaceRight],
+              ["left", spaceLeft],
+            ] as [Placement, number][]
+          ).reduce((a, b) => (b[1] > a[1] ? b : a));
           p = best[0];
         }
         setCardAdjust({ x: 0, y: 0 });
         setPlacement(p);
         setActivePin(3);
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -213,32 +346,43 @@ export default function HeroSection() {
     const GAP = 12;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    let x = 0, y = 0;
-    if (r.right  > vw - GAP) x = vw - GAP - r.right;
-    if (r.left   < GAP)      x = GAP - r.left;
+    let x = 0,
+      y = 0;
+    if (r.right > vw - GAP) x = vw - GAP - r.right;
+    if (r.left < GAP) x = GAP - r.left;
     if (r.bottom > vh - GAP) y = vh - GAP - r.bottom;
-    if (r.top    < GAP)      y = GAP - r.top;
-    if (x !== 0 || y !== 0) setCardAdjust(prev => ({ x: prev.x + x, y: prev.y + y }));
+    if (r.top < GAP) y = GAP - r.top;
+    if (x !== 0 || y !== 0)
+      setCardAdjust((prev) => ({ x: prev.x + x, y: prev.y + y }));
   }, [activePin, placement]);
 
   function handlePinClick(e: React.MouseEvent<HTMLDivElement>, i: number) {
-    if (i === activePin) { setActivePin(-1); return; }
+    if (i === activePin) {
+      setActivePin(-1);
+      return;
+    }
     const rect = e.currentTarget.getBoundingClientRect();
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const spaceTop    = rect.top;
+    const spaceTop = rect.top;
     const spaceBottom = vh - rect.bottom;
-    const spaceRight  = vw - rect.right;
-    const spaceLeft   = rect.left;
+    const spaceRight = vw - rect.right;
+    const spaceLeft = rect.left;
 
     let p: Placement;
-    if      (spaceTop    >= CARD_H + 12) p = "top";
+    if (spaceTop >= CARD_H + 12) p = "top";
     else if (spaceBottom >= CARD_H + 12) p = "bottom";
-    else if (spaceRight  >= CARD_W + 12) p = "right";
-    else if (spaceLeft   >= CARD_W + 12) p = "left";
+    else if (spaceRight >= CARD_W + 12) p = "right";
+    else if (spaceLeft >= CARD_W + 12) p = "left";
     else {
-      const best = ([["top", spaceTop], ["bottom", spaceBottom], ["right", spaceRight], ["left", spaceLeft]] as [Placement, number][])
-        .reduce((a, b) => b[1] > a[1] ? b : a);
+      const best = (
+        [
+          ["top", spaceTop],
+          ["bottom", spaceBottom],
+          ["right", spaceRight],
+          ["left", spaceLeft],
+        ] as [Placement, number][]
+      ).reduce((a, b) => (b[1] > a[1] ? b : a));
       p = best[0];
     }
 
@@ -273,8 +417,8 @@ export default function HeroSection() {
               ref={i === 3 ? munachiPinRef : undefined}
               className="absolute flex flex-col items-center cursor-pointer"
               style={{
-                left: pin.left,
-                top: pin.top,
+                left: isMobile ? pin.mobileLeft : pin.left,
+                top: isMobile ? pin.mobileTop : pin.top,
                 transform: "translate(-50%, -100%)",
                 zIndex: activePin === i ? 9999 : 5,
               }}
@@ -428,7 +572,6 @@ export default function HeroSection() {
             </button>
           </motion.div>
         </div>
-
       </div>
 
       <style>{`

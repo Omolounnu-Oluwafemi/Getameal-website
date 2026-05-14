@@ -9,21 +9,21 @@ const ACTIVITIES = [
     num: 1,
     title: "Food Tasting",
     desc: "Explore a curated selection of different local dishes",
-    emoji: "🍲",
+    img: "/foodTaste.png",
     bg: "bg-orange-100",
   },
   {
     num: 2,
     title: "Cake Tasting",
     desc: "Sample handcrafted desserts from local bakers.",
-    emoji: "🎂",
+    img: "/PreOrder.png",
     bg: "bg-amber-100",
   },
   {
     num: 3,
     title: "Paint & Sip",
     desc: "Unwind with guided painting while you sip and socialize.",
-    emoji: "🎨",
+    img: "/Pickup.png",
     bg: "bg-yellow-100",
   },
 ];
@@ -84,9 +84,14 @@ export default function EventSection() {
                     {a.num}
                   </span>
                   <div
-                    className={`w-12 sm:w-12.5 h-12 sm:h-11.5 rounded-[10px] ${a.bg} flex items-center justify-center text-2xl shrink-0`}
+                    className={`w-12 sm:w-12.5 h-12 sm:h-11.5 rounded-[10px] ${a.bg} shrink-0 relative overflow-hidden`}
                   >
-                    {a.emoji}
+                    <Image
+                      src={a.img}
+                      alt={a.title}
+                      fill
+                      className="object-cover object-top"
+                    />
                   </div>
                   <div>
                     <p className="font-semibold text-black text-[16px]">
@@ -99,7 +104,10 @@ export default function EventSection() {
             </div>
 
             {/* Phone + CTA */}
-            <div className="flex flex-col sm:flex-row w-full max-w-125 gap-3 sm:gap-0 sm:bg-white sm:rounded-full sm:overflow-hidden mb-10" style={{ boxShadow: "0px 4px 50px 0px #00000014" }}>
+            <div
+              className="flex flex-col sm:flex-row w-full max-w-125 gap-3 sm:gap-0 sm:bg-white sm:rounded-full sm:overflow-hidden mb-10"
+              style={{ boxShadow: "0px 4px 50px 0px #00000014" }}
+            >
               <input
                 type="tel"
                 value={phone}

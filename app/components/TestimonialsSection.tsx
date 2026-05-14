@@ -53,16 +53,14 @@ const PAIRS = [
 ];
 
 const N = PAIRS.length;
-const LOOP_PAIRS = [...PAIRS, ...PAIRS, ...PAIRS];
-
 const GAP = 16;
 const LEFT_PAD = 16;
 
 export default function TestimonialsSection() {
-  const [current, setCurrent] = useState(N);
-  const [animated, setAnimated] = useState(true);
+  const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const resettingRef = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef<number | null>(null);
 
   const cardW = isMobile ? 300 : 580;
   const cardH = isMobile ? 400 : 700;
@@ -73,35 +71,33 @@ export default function TestimonialsSection() {
     const check = () => setIsMobile(window.innerWidth < 640);
     check();
     window.addEventListener("resize", check);
-
-    const timer = setInterval(() => {
-      setCurrent((prev) => prev + 1);
-    }, 4500);
-
-    return () => {
-      window.removeEventListener("resize", check);
-      clearInterval(timer);
-    };
+    return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Silent reset when reaching third copy
-  useEffect(() => {
-    if (current >= N * 2 && !resettingRef.current) {
-      resettingRef.current = true;
-      setTimeout(() => {
-        setAnimated(false);
-        setCurrent(N);
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => {
-            setAnimated(true);
-            resettingRef.current = false;
-          }),
-        );
-      }, 850);
-    }
-  }, [current]);
-
   const offset = LEFT_PAD - current * pairW;
+
+  function handlePrev() {
+    setCurrent((prev) => Math.max(0, prev - 1));
+  }
+
+  function handleNext() {
+    setCurrent((prev) => Math.min(N - 1, prev + 1));
+  }
+
+  function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    dragStartX.current = e.clientX;
+    setIsDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null) return;
+    const delta = dragStartX.current - e.clientX;
+    if (delta > 50) handleNext();
+    else if (delta < -50) handlePrev();
+    dragStartX.current = null;
+    setIsDragging(false);
+  }
 
   return (
     <section className="py-10 sm:py-20 bg-[#F7F7F7] overflow-hidden">
@@ -122,20 +118,31 @@ export default function TestimonialsSection() {
         </p>
       </motion.div>
 
-      {/* Scrolling strip — moves one pair at a time */}
-      <div className="overflow-hidden">
+      {/* Card strip */}
+      <div
+        className="overflow-hidden"
+        style={{
+          cursor: isDragging ? "grabbing" : "grab",
+          touchAction: "pan-y",
+          userSelect: "none",
+        }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerLeave={() => {
+          dragStartX.current = null;
+          setIsDragging(false);
+        }}
+      >
         <div
           className="flex"
           style={{
             gap: `${GAP}px`,
             transform: `translateX(${offset}px)`,
-            transition: animated
-              ? "transform 800ms cubic-bezier(0.4, 0, 0.2, 1)"
-              : "none",
+            transition: "transform 600ms cubic-bezier(0.4, 0, 0.2, 1)",
             width: "max-content",
           }}
         >
-          {LOOP_PAIRS.map((pair, i) => (
+          {PAIRS.map((pair, i) => (
             <div key={i} className="contents">
               {/* Photo card */}
               <div
@@ -184,6 +191,60 @@ export default function TestimonialsSection() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex items-center justify-center gap-6 mt-10 px-4">
+        <button
+          onClick={handlePrev}
+          disabled={current === 0}
+          className="w-12 h-12 rounded-full cursor-pointer border border-gray-300 flex items-center justify-center transition-colors hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Previous"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M12.5 15L7.5 10L12.5 5"
+              stroke="#111"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        {/* Dot indicators */}
+        <div className="flex gap-2">
+          {PAIRS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className="transition-all duration-300 rounded-full cursor-pointer"
+              style={{
+                width: current === i ? 24 : 8,
+                height: 8,
+                backgroundColor: current === i ? "#209D01" : "#D1D5DB",
+              }}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={handleNext}
+          disabled={current === N - 1}
+          className="w-12 h-12 rounded-full cursor-pointer border border-gray-300 flex items-center justify-center transition-colors hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Next"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path
+              d="M7.5 5L12.5 10L7.5 15"
+              stroke="#111"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
       </div>
     </section>
   );

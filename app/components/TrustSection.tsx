@@ -9,7 +9,7 @@ const STEPS = [
     title: "Explore home cooks near you",
     desc: "Find verified cook that will cook what you want to eat for the week. It's made fresh for you.",
     mobileDesc: "Find verified cook that will cook what you want to eat for the week.",
-    thumb: { bg: "bg-amber-100", emoji: "👨‍🍳" },
+    thumb: { bg: "bg-amber-50", img: "/Explore.png" },
     align: "items-start",
   },
   {
@@ -17,7 +17,7 @@ const STEPS = [
     title: "Pre-Order the portion you need",
     desc: "Order 5 Litres of egusi, 8 Litres of Jollof rice with protein or any meal of your choice and enjoy for the week.",
     mobileDesc: "Order 5 Litres of egusi or any meal of your choice and enjoy.",
-    thumb: { bg: "bg-orange-100", emoji: "🍛" },
+    thumb: { bg: "bg-orange-50", img: "/PreOrder.png" },
     align: "items-center",
   },
   {
@@ -25,7 +25,7 @@ const STEPS = [
     title: "Pick up your order or get it delivered",
     desc: "Once the cook is done cooking your meal, you either get it delivered to you or you pick it up yourself no stories.",
     mobileDesc: "You either get it delivered to you or you pick it up yourself no stories.",
-    thumb: { bg: "bg-red-100", emoji: "🛵" },
+    thumb: { bg: "bg-red-50", img: "/Pickup.png" },
     align: "items-end",
   },
 ];
@@ -88,8 +88,8 @@ export default function TrustSection() {
                   <motion.div className={`flex ${align} gap-6`} variants={stepVariants}>
                     <span className="text-sm font-bold text-black w-6 text-center">{number}</span>
                     <div className="flex gap-3 flex-1 bg-white rounded-[20px] p-4 md:p-6">
-                      <div className={`w-17.25 h-15.75 rounded-xl ${thumb.bg} shrink-0 flex items-center justify-center text-xl overflow-hidden`}>
-                        {thumb.emoji}
+                      <div className={`w-17.25 h-15.75 rounded-xl ${thumb.bg} shrink-0 overflow-hidden relative`}>
+                        <Image src={thumb.img} alt="" fill className="object-cover object-top" />
                       </div>
                       <div className="flex-1">
                         <p className="text-sm md:text-[16px] font-semibold text-black mb-0.5">{title}</p>
