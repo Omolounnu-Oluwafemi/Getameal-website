@@ -54,7 +54,7 @@ export default function FindCooksSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full px-6 py-4 text-sm text-white placeholder-white bg-white/30 backdrop-blur-3xl rounded-full focus:outline-none border border-white/20"
+              className="w-full px-6 py-4 text-base sm:text-sm text-white placeholder-white bg-white/30 backdrop-blur-3xl rounded-full focus:outline-none border border-white/20"
             />
             <button className="w-full bg-white text-gray-900 text-[16px] font-medium px-7 py-4 rounded-full hover:bg-gray-100 transition-colors shadow-sm">
               Join Waiting List

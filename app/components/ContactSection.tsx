@@ -10,7 +10,7 @@ const CONTACT_OPTIONS = [
 ];
 
 const inputClass =
-  "w-full px-5 py-3 rounded-[10px] border border-gray-200 text-sm text-[#000000] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 bg-white";
+  "w-full px-5 py-3 rounded-[10px] border border-gray-200 text-base sm:text-sm text-[#000000] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 bg-white";
 
 export default function ContactSection() {
   return (

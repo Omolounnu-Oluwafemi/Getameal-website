@@ -110,7 +110,7 @@ export default function BenefitsSection() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="w-full px-5 py-4 text-sm bg-[#F7F7F7] text-gray-700 rounded-full focus:outline-none focus:border-gray-300"
+                    className="w-full px-5 py-4 text-base sm:text-sm bg-[#F7F7F7] text-gray-700 rounded-full focus:outline-none focus:border-gray-300"
                   />
                   <button className="w-full bg-[#209D01] hover:bg-green-700 text-white text-sm font-semibold py-4 rounded-full transition-colors">
                     Join Today

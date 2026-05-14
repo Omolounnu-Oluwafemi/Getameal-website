@@ -53,6 +53,7 @@ const PAIRS = [
 ];
 
 const N = PAIRS.length;
+const TOTAL_CARDS = N * 2;
 const GAP = 16;
 const LEFT_PAD = 16;
 
@@ -64,7 +65,7 @@ export default function TestimonialsSection() {
   const cardW = isMobile ? 300 : 580;
   const cardH = isMobile ? 400 : 700;
   const radius = isMobile ? 20 : 30;
-  const pairW = (cardW + GAP) * 2;
+  const step = cardW + GAP;
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640);
@@ -73,14 +74,15 @@ export default function TestimonialsSection() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const offset = LEFT_PAD - current * pairW;
+  const offset = LEFT_PAD - current * step;
+  const activePair = Math.floor(current / 2);
 
   function handlePrev() {
     setCurrent((prev) => Math.max(0, prev - 1));
   }
 
   function handleNext() {
-    setCurrent((prev) => Math.min(N - 1, prev + 1));
+    setCurrent((prev) => Math.min(TOTAL_CARDS - 1, prev + 1));
   }
 
   function onTouchStart(e: React.TouchEvent<HTMLDivElement>) {
@@ -220,12 +222,12 @@ export default function TestimonialsSection() {
           {PAIRS.map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrent(i)}
+              onClick={() => setCurrent(i * 2)}
               className="transition-all duration-300 rounded-full cursor-pointer"
               style={{
-                width: current === i ? 24 : 8,
+                width: activePair === i ? 24 : 8,
                 height: 8,
-                backgroundColor: current === i ? "#209D01" : "#D1D5DB",
+                backgroundColor: activePair === i ? "#209D01" : "#D1D5DB",
               }}
               aria-label={`Go to slide ${i + 1}`}
             />
@@ -234,7 +236,7 @@ export default function TestimonialsSection() {
 
         <button
           onClick={handleNext}
-          disabled={current === N - 1}
+          disabled={current === TOTAL_CARDS - 1}
           className="w-12 h-12 rounded-full cursor-pointer border border-gray-300 flex items-center justify-center transition-colors hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
           aria-label="Next"
         >

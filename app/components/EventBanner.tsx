@@ -60,7 +60,7 @@ export default function EventBanner() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="flex-1 px-6 py-4 text-sm text-white placeholder-white/70 bg-white/20 backdrop-blur-md border border-white/20 rounded-full sm:bg-transparent sm:backdrop-blur-none sm:border-0 sm:rounded-none focus:outline-none"
+            className="flex-1 px-6 py-4 text-base sm:text-sm text-white placeholder-white/70 bg-white/20 backdrop-blur-md border border-white/20 rounded-full sm:bg-transparent sm:backdrop-blur-none sm:border-0 sm:rounded-none focus:outline-none"
           />
           <button className="w-full sm:w-auto bg-white text-black text-[16px] font-medium px-6 py-3 rounded-full sm:m-1.5 hover:bg-gray-100 transition-colors whitespace-nowrap">
             Reserve My Spot
