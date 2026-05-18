@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div className="overflow-x-clip">
       <HeroSection />
-      <EventBanner />
+      {/* <EventBanner /> */}
       <TrustSection />
       <HowItWorksSection />
       <BenefitsSection />

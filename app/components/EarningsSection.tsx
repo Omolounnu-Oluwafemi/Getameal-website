@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const COOKS = [
@@ -40,12 +40,49 @@ const COOKS = [
 export default function EarningsSection() {
   const [days, setDays] = useState(3);
   const [meals, setMeals] = useState(3);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef<"days" | "meals" | null>(null);
 
-  const weeklyEarnings = (days * meals * 22838).toLocaleString("en-NG");
-  // Days handle: left half (0–50%); dragging right (toward center) increases days
+  const daysRounded = Math.round(days);
+  const mealsRounded = Math.round(meals);
+  const weeklyEarnings = (daysRounded * mealsRounded * 22838).toLocaleString("en-NG");
   const daysPercent = ((days - 1) / 6) * 50;
-  // Meals handle: right half (50–100%); dragging right increases meals
   const mealsPercent = 50 + ((meals - 1) / 6) * 50;
+
+  const pctFromClient = (clientX: number) => {
+    const rect = trackRef.current!.getBoundingClientRect();
+    return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  };
+
+  const applyPct = (pct: number, side: "days" | "meals") => {
+    if (side === "days") {
+      const t = Math.min(pct, 0.5) / 0.5;
+      setDays(Math.max(1, Math.min(7, 1 + t * 6)));
+    } else {
+      const t = Math.max(0, pct - 0.5) / 0.5;
+      setMeals(Math.max(1, Math.min(7, 1 + t * 6)));
+    }
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    const pct = pctFromClient(e.clientX);
+    const side =
+      Math.abs(pct - daysPercent / 100) <= Math.abs(pct - mealsPercent / 100)
+        ? "days"
+        : "meals";
+    draggingRef.current = side;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    applyPct(pct, side);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    applyPct(pctFromClient(e.clientX), draggingRef.current);
+  };
+
+  const onPointerUp = () => {
+    draggingRef.current = null;
+  };
 
   return (
     <section className="bg-white py-10 lg:py-24 text-center" id="for-cooks">
@@ -130,7 +167,7 @@ export default function EarningsSection() {
         >
           {/* Summary line */}
           <p className="text-[16px] font-semibold text-black mb-14">
-            {days} times, {meals} meals a week&nbsp;&nbsp;|&nbsp;&nbsp; ₦
+            {daysRounded} times, {mealsRounded} meals a week&nbsp;&nbsp;|&nbsp;&nbsp; ₦
             {weeklyEarnings}.00
           </p>
 
@@ -142,21 +179,27 @@ export default function EarningsSection() {
                 className="absolute -translate-x-1/2 bg-white border border-gray-200 text-xs font-semibold text-gray-700 px-3 py-1 rounded-full shadow-sm whitespace-nowrap"
                 style={{ left: `${daysPercent}%` }}
               >
-                {days} Days
+                {daysRounded} Days
               </div>
               <div
                 className="absolute -translate-x-1/2 bg-white border border-gray-200 text-xs font-semibold text-gray-700 px-3 py-1 rounded-full shadow-sm whitespace-nowrap"
                 style={{ left: `${mealsPercent}%` }}
               >
-                {meals} Meals
+                {mealsRounded} Meals
               </div>
             </div>
 
             {/* Track */}
-            <div className="relative h-2 bg-gray-200 rounded-full">
+            <div
+              ref={trackRef}
+              className="relative h-2 bg-gray-200 rounded-full cursor-pointer touch-none select-none"
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+            >
               {/* Green fill between handles */}
               <div
-                className="absolute h-full bg-green-600 rounded-full"
+                className="absolute h-full bg-green-600 rounded-full pointer-events-none"
                 style={{
                   left: `${daysPercent}%`,
                   right: `${100 - mealsPercent}%`,
@@ -164,36 +207,15 @@ export default function EarningsSection() {
               />
               {/* Days handle */}
               <div
-                className="absolute w-5 h-5 bg-white rounded-full shadow-md -translate-y-1.5 -translate-x-1/2 pointer-events-none"
+                className="absolute top-1/2 w-7.5 h-7.5 bg-white rounded-full shadow-md -translate-y-1/2 -translate-x-1/2 pointer-events-none"
                 style={{ left: `${daysPercent}%` }}
               />
               {/* Meals handle */}
               <div
-                className="absolute w-5 h-5 bg-white rounded-full shadow-md -translate-y-1.5 -translate-x-1/2 pointer-events-none"
+                className="absolute top-1/2 w-7.5 h-7.5 bg-white rounded-full shadow-md -translate-y-1/2 -translate-x-1/2 pointer-events-none"
                 style={{ left: `${mealsPercent}%` }}
               />
             </div>
-
-            {/* Days input covers left half only */}
-            <input
-              type="range"
-              min={1}
-              max={7}
-              value={days}
-              onChange={(e) => setDays(Number(e.target.value))}
-              className="absolute top-8 h-6 opacity-0 cursor-pointer"
-              style={{ left: 0, width: "50%" }}
-            />
-            {/* Meals input covers right half only */}
-            <input
-              type="range"
-              min={1}
-              max={7}
-              value={meals}
-              onChange={(e) => setMeals(Number(e.target.value))}
-              className="absolute top-8 h-6 opacity-0 cursor-pointer"
-              style={{ right: 0, width: "50%" }}
-            />
           </div>
 
           {/* CTA button */}
